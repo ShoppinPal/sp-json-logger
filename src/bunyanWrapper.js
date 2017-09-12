@@ -3,7 +3,7 @@
 */
 var bunyan = require('bunyan');
 var env = process.env.NODE_ENV;
-var PrettyStream = require('./prettystream');
+var PrettyStream = require('./utils/bunyan-pretty-stream/lib/prettystream');
 
 var prettyStdOut = null;
 if (env === 'local') {
