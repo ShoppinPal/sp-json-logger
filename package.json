@@ -1,0 +1,17 @@
+{
+  "name": "sp-json-logger",
+  "version": "1.0.0",
+  "description": "wrapper to bunyan logger",
+  "main": "./src/bunyanWrapper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "log"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bunyan": "^1.8.12"
+  }
+}
