@@ -14,15 +14,27 @@ if (env === 'local') {
 function Logger(config) {
 
   this.bunyanLogger = bunyan.createLogger({
-      name: process.env.NAME ? process.env.NAME : '',
+      name: process.env.NAME ? process.env.NAME : 'sp-json-logger',
       streams: [    
         {
           level: 'debug',
           stream: prettyStdOut  || process.stdout
         },
         {
+          level: 'warn',
+          stream: prettyStdOut  || process.stdout
+        },
+        {
+          level: 'fatal',
+          stream: prettyStdOut  || process.stderr
+        },
+        {
+          level: 'trace',
+          stream: prettyStdOut  || process.stdout
+        },
+        {
           level: 'error',
-          stream: prettyStdOut || process.stdout
+          stream: prettyStdOut || process.stderr
         }
       ]
     });
