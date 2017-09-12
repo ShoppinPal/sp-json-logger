@@ -17,21 +17,21 @@ log.info({log: { message: "hi"}});
 
 You need to set the following environment variables for logger to work without our logger module throwing errors ( We can change this behavior if we want, but it will help us create a habit to specify env variables which can be used to identify our application in multi app environment where we have multiple modules split up into different microservices each having its own language and platform)
 
-- **NAME:** ‘Name of the logger’ 
-- **APPLICATION:** ‘Name of applicaton’
-- **PROGRAM:** ‘Name of module’ // eg: scheduler-worker/scheduler-api
-- **LANGUAGE:** ‘Programming language used’ // eg: javascript/php/go
-- **NODE_ENV:** ‘environment’ // note: Pretty print is supported on local environment setting, if using staging or production, you won’t get pretty json output to console.
+- **NAME:** 'Name of the logger' 
+- **APPLICATION:** 'Name of applicaton'
+- **PROGRAM:** 'Name of module' // eg: scheduler-worker/scheduler-api
+- **LANGUAGE:** 'Programming language used' // eg: javascript/php/go
+- **NODE_ENV:** 'environment' // note: Pretty print is supported on local environment setting, if using staging or production, you won’t get pretty json output to console.
 
 If logging only string message, use the following format:
 
-`logger.debug({log: {message: ‘Your string here...’}});`
+`logger.debug({log: {message: 'Your string here...'}});`
 
-Also use `logger.tag(‘CONNECTION’).debug({log: { message: ‘Successfully connected’ } });`
+Also use `logger.tag('CONNECTION').debug({log: { message: 'Successfully connected' } });`
 If logging a JSON Object, use following format:
 ```js
-logger.tag(‘AUDIT’).debug({log:{
-	type: ‘TYPE of LOG’,  // eg: AUDIT Created
+logger.tag('AUDIT').debug({log:{
+	type: 'TYPE of LOG',  // eg: AUDIT Created
 	objectName: objectValue,
 	}
 });
@@ -49,7 +49,7 @@ Source: [https://www.npmjs.com/package/bunyan#levels](https://www.npmjs.com/pack
 
 
 # Key Notes:
-- Use tags wherever applicable i.e `logger.tag(‘TAG’).error(err);`
+- Use tags wherever applicable i.e `logger.tag('TAG').error(err);`
 - When logging error, pass the err object instance directly i.e rather than doing `logger.error({log: {error: err}})`, do `logger.error(err);` instead! Bunyan recommends this approach and we have to make sure that it is being followed!
 Source: [https://www.npmjs.com/package/bunyan#recommendedbest-practice-fields](https://www.npmjs.com/package/bunyan#recommendedbest-practice-fields)
 
@@ -67,6 +67,6 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 - Specify name of the logger in the NAME env variable to be meaningful.
 - As far as possible use `logger.tag('TAG');` field to describe the event for which we are logging.
 - If you just need to log a string, do take the pain and create it as follows: 
-`logger.debug({ log: {message: ‘your string’ } });`
+`logger.debug({ log: {message: 'your string' } });`
 
 
