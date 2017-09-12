@@ -1,6 +1,6 @@
 {
   "name": "sp-json-logger",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "wrapper to bunyan logger",
   "main": "./src/bunyanWrapper.js",
   "scripts": {
@@ -12,6 +12,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "bunyan": "^1.8.12"
+    "bunyan": "1.8.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ShoppinPal/sp-json-logger"
   }
 }
