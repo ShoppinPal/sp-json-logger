@@ -17,7 +17,7 @@ function Logger(config) {
       name: process.env.NAME ? process.env.NAME : 'sp-json-logger',
       streams: [    
         {
-          level: 'debug',
+          level: 'trace',
           stream: prettyStdOut  || process.stdout
         },
         {
