@@ -21,18 +21,6 @@ function Logger(config) {
           stream: prettyStdOut  || process.stdout
         },
         {
-          level: 'warn',
-          stream: prettyStdOut  || process.stdout
-        },
-        {
-          level: 'fatal',
-          stream: prettyStdOut  || process.stderr
-        },
-        {
-          level: 'trace',
-          stream: prettyStdOut  || process.stdout
-        },
-        {
           level: 'error',
           stream: prettyStdOut || process.stderr
         }
