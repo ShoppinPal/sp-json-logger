@@ -1,4 +1,4 @@
-var logger = require('sp-json-logger');
+var logger = require('./../src/bunyanWrapper');
 
 logger.info({log: { message: "hi"}});
 logger.debug({log: {message: 'Your string here...'}});
