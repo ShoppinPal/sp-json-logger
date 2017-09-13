@@ -26,4 +26,4 @@ logger.error(explicitError);
 
 console.log("\n\nUsing correct format below logger.error({err: object}), thus name isn't overriden");
 // It is therefore recommended to use the following format! This way we don't override name property of bunyan.
-logger.error(explicitError);
+logger.error({err: explicitError});
