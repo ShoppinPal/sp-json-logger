@@ -69,4 +69,14 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 - If you just need to log a string, do take the pain and create it as follows: 
 `logger.debug({ log: {message: ‘your string’ } });`
 
+# Testing:
 
+* To test without publishing, go to the `PROJECT_ROOT` directory and run `npm link`. Sample output:
+
+		```
+		$ npm link
+		~/.nvm/versions/v7.10.0/lib/node_modules/sp-json-logger -> ~/path/to/<PROJECT_ROOT>
+		```
+* Now you can create and run tests:
+		* `node test/test.1.js`
+		* `env=local node test/test.1.js`
