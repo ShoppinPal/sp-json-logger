@@ -19,10 +19,6 @@ function Logger(config) {
         {
           level: 'trace',
           stream: prettyStdOut  || process.stdout
-        },
-        {
-          level: 'error',
-          stream: prettyStdOut || process.stderr
         }
       ]
     });
