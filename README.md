@@ -79,4 +79,49 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 		```
 * Now you can create and run tests:
 		* `node test/test.1.js`
+
+				```
+				{"name":"sp-json-logger","hostname":"Fermyon-Air-4","pid":2076,"level":30,"application":"","program":"","language":"","log":{"message":"hi"},"msg":"","time":"2017-09-13T02:56:59.521Z","v":0}
+				{"name":"sp-json-logger","hostname":"Fermyon-Air-4","pid":2076,"level":20,"application":"","program":"","language":"","log":{"message":"Your string here..."},"msg":"","time":"2017-09-13T02:56:59.522Z","v":0}
+				{"name":"sp-json-logger","hostname":"Fermyon-Air-4","pid":2076,"level":20,"application":"","program":"","language":"","log":{"message":"Successfully connected"},"tag":"myTagA","msg":"","time":"2017-09-13T02:56:59.523Z","v":0}
+				{"name":"sp-json-logger","hostname":"Fermyon-Air-4","pid":2076,"level":20,"application":"","program":"","language":"","log":{"type":"AUDIT","habitable":{"planets":["mars","earth"]}},"tag":"myTagB","msg":"","time":"2017-09-13T02:56:59.523Z","v":0}
+				{"name":"sp-json-logger","hostname":"Fermyon-Air-4","pid":2076,"level":50,"application":"","program":"","language":"","msg":"","time":"2017-09-13T02:56:59.523Z","v":0}
+				{"name":"sp-json-logger","hostname":"Fermyon-Air-4","pid":2076,"level":50,"application":"","program":"","language":"","msg":"","time":"2017-09-13T02:56:59.523Z","v":0}
+				```
 		* `NODE_ENV=local node test/test.1.js`
+
+				```
+				[2017-09-13T03:49:16.011Z]  INFO: sp-json-logger/7842 on Fermyon-Air-4:  (application="", program="", language="")
+						
+						--
+						log: {
+							"message": "hi"
+						}
+				[2017-09-13T03:49:16.014Z] DEBUG: sp-json-logger/7842 on Fermyon-Air-4:  (application="", program="", language="")
+						
+						--
+						log: {
+							"message": "Your string here..."
+						}
+				[2017-09-13T03:49:16.015Z] DEBUG: sp-json-logger/7842 on Fermyon-Air-4:  (application="", program="", language="", tag=myTagA)
+						
+						--
+						log: {
+							"message": "Successfully connected"
+						}
+				[2017-09-13T03:49:16.015Z] DEBUG: sp-json-logger/7842 on Fermyon-Air-4:  (application="", program="", language="", tag=myTagB)
+						
+						--
+						log: {
+							"type": "AUDIT",
+							"habitable": {
+								"planets": [
+									"mars",
+									"earth"
+								]
+							}
+						}
+				[2017-09-13T03:49:16.015Z] ERROR: sp-json-logger/7842 on Fermyon-Air-4:  (application="", program="", language="")
+						
+				[2017-09-13T03:49:16.015Z] ERROR: sp-json-logger/7842 on Fermyon-Air-4:  (application="", program="", language="")
+				```
