@@ -79,4 +79,4 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 		```
 * Now you can create and run tests:
 		* `node test/test.1.js`
-		* `env=local node test/test.1.js`
+		* `NODE_ENV=local node test/test.1.js`
