@@ -50,8 +50,9 @@ Source: [https://www.npmjs.com/package/bunyan#levels](https://www.npmjs.com/pack
 
 # Key Notes:
 - Use tags wherever applicable i.e `logger.tag(‘TAG’).error(err);`
-- When logging error, pass the err object instance directly i.e rather than doing `logger.error({log: {error: err}})`, do `logger.error(err);` instead! Bunyan recommends this approach and we have to make sure that it is being followed!
+- When logging error, pass the err object instance directly i.e rather than doing `logger.error({log: {error: err}})`, do `logger.error(err);` instead Assuming the format of err object is `{err: {message: 'your message', name: 'some name', stack: 'some stack...'}}`! Bunyan recommends this approach and we have to make sure that it is being followed!
 Source: [https://www.npmjs.com/package/bunyan#recommendedbest-practice-fields](https://www.npmjs.com/package/bunyan#recommendedbest-practice-fields)
+- For logging errors of custom objects, use the syntax: `logger.error({err: customObj});`
 
 # Local environment vs Staging/Production environment:
 
@@ -81,47 +82,62 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 		* `node test/test.1.js`
 
 				```
-				{"name":"sp-json-logger","hostname":"Fermyon-Air-4","pid":2076,"level":30,"application":"","program":"","language":"","log":{"message":"hi"},"msg":"","time":"2017-09-13T02:56:59.521Z","v":0}
-				{"name":"sp-json-logger","hostname":"Fermyon-Air-4","pid":2076,"level":20,"application":"","program":"","language":"","log":{"message":"Your string here..."},"msg":"","time":"2017-09-13T02:56:59.522Z","v":0}
-				{"name":"sp-json-logger","hostname":"Fermyon-Air-4","pid":2076,"level":20,"application":"","program":"","language":"","log":{"message":"Successfully connected"},"tag":"myTagA","msg":"","time":"2017-09-13T02:56:59.523Z","v":0}
-				{"name":"sp-json-logger","hostname":"Fermyon-Air-4","pid":2076,"level":20,"application":"","program":"","language":"","log":{"type":"AUDIT","habitable":{"planets":["mars","earth"]}},"tag":"myTagB","msg":"","time":"2017-09-13T02:56:59.523Z","v":0}
-				{"name":"sp-json-logger","hostname":"Fermyon-Air-4","pid":2076,"level":50,"application":"","program":"","language":"","msg":"","time":"2017-09-13T02:56:59.523Z","v":0}
-				{"name":"sp-json-logger","hostname":"Fermyon-Air-4","pid":2076,"level":50,"application":"","program":"","language":"","msg":"","time":"2017-09-13T02:56:59.523Z","v":0}
+				{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":46852,"level":30,"application":"","program":"","language":"","log":{"message
+				":"hi"},"msg":"","time":"2017-09-13T07:39:22.107Z","v":0}
+				{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":46852,"level":20,"application":"","program":"","language":"","log":{"message
+				":"Your string here..."},"msg":"","time":"2017-09-13T07:39:22.109Z","v":0}{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":46852,"level":20,"application":"","program":"","language":"","log":{"message
+				":"Successfully connected"},"tag":"myTagA","msg":"","time":"2017-09-13T07:39:22.110Z","v":0}{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":46852,"level":20,"application":"","program":"","language":"","log":{"type":"
+				AUDIT","habitable":{"planets":["mars","earth"]}},"tag":"myTagB","msg":"","time":"2017-09-13T07:39:22.110Z","v":0}
+				If we use logger.error({message: 'Your message', name: 'error name', stack: 'some stack....'});
+				It will override the bunyan name property, so such usage is discouraged. See below output for such behavior, name property is discovery instead of sp-json-logger
+				{"name":"discovery","hostname":"Yogeshs-MacBook-Air.local","pid":46852,"level":50,"application":"","program":"","language":"","message":"the earth is round :p","msg":"","time":"2017-09-13T07:39:22.114Z","v":0}
+
+				Using correct format below logger.error({err: object}), thus name isn't overriden{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":46852,"level":50,"application":"","program":"","language":"","err":{"message
+				":"the earth is round :p","name":"discovery","stack":"Some stack here....."},"msg":"the earth is round :p","time":"2017-09-13T07:39:22.115Z","v":0
+				}
 				```
 		* `NODE_ENV=local node test/test.1.js`
 
 				```
-				[2017-09-13T03:49:16.011Z]  INFO: sp-json-logger/7842 on Fermyon-Air-4:  (application="", program="", language="")
-						
-						--
-						log: {
-							"message": "hi"
-						}
-				[2017-09-13T03:49:16.014Z] DEBUG: sp-json-logger/7842 on Fermyon-Air-4:  (application="", program="", language="")
-						
-						--
-						log: {
-							"message": "Your string here..."
-						}
-				[2017-09-13T03:49:16.015Z] DEBUG: sp-json-logger/7842 on Fermyon-Air-4:  (application="", program="", language="", tag=myTagA)
-						
-						--
-						log: {
-							"message": "Successfully connected"
-						}
-				[2017-09-13T03:49:16.015Z] DEBUG: sp-json-logger/7842 on Fermyon-Air-4:  (application="", program="", language="", tag=myTagB)
-						
-						--
-						log: {
-							"type": "AUDIT",
-							"habitable": {
-								"planets": [
-									"mars",
-									"earth"
-								]
-							}
-						}
-				[2017-09-13T03:49:16.015Z] ERROR: sp-json-logger/7842 on Fermyon-Air-4:  (application="", program="", language="")
-						
-				[2017-09-13T03:49:16.015Z] ERROR: sp-json-logger/7842 on Fermyon-Air-4:  (application="", program="", language="")
+				[2017-09-13T07:40:26.355Z]  INFO: sp-json-logger/46861 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
+
+					--
+					log: {
+					"message": "hi"
+					}
+				[2017-09-13T07:40:26.359Z] DEBUG: sp-json-logger/46861 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
+
+					--
+					log: {
+					"message": "Your string here..."
+					}
+				[2017-09-13T07:40:26.360Z] DEBUG: sp-json-logger/46861 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=myTagA)
+
+					--
+					log: {
+					"message": "Successfully connected"
+					}
+				[2017-09-13T07:40:26.361Z] DEBUG: sp-json-logger/46861 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=myTagB)
+
+					--
+					log: {
+					"type": "AUDIT",
+					"habitable": {
+						"planets": [
+						"mars",
+						"earth"
+						]
+					}
+					}
+
+
+				If we use logger.error({message: 'Your message', name: 'error name', stack: 'some stack....'});
+				It will override the bunyan name property, so such usage is discouraged. See below output for such behavior, name property is discovery instead of sp-json-logger
+				[2017-09-13T07:40:26.367Z] ERROR: discovery/46861 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", message="the earth is round :p")
+
+
+
+				Using correct format below logger.error({err: object}), thus name isn't overriden
+				[2017-09-13T07:40:26.368Z] ERROR: sp-json-logger/46861 on Yogeshs-MacBook-Air.local: the earth is round :p (application="", program="", language="")
+					Some stack here.....
 				```
