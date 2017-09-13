@@ -17,7 +17,7 @@ log.info({log: { message: "hi"}});
 
 You need to set the following environment variables for logger to work without our logger module throwing errors ( We can change this behavior if we want, but it will help us create a habit to specify env variables which can be used to identify our application in multi app environment where we have multiple modules split up into different microservices each having its own language and platform)
 
-- **NAME:** 'Name of the logger' 
+- **NAME:** 'Name of the logger' else will default to 'sp-json-logger'
 - **APPLICATION:** 'Name of applicaton'
 - **PROGRAM:** 'Name of module' // eg: scheduler-worker/scheduler-api
 - **LANGUAGE:** 'Programming language used' // eg: javascript/php/go
