@@ -15,14 +15,11 @@ function Logger(config) {
 
   this.bunyanLogger = bunyan.createLogger({
       name: process.env.NAME ? process.env.NAME : 'sp-json-logger',
+      serializers: bunyan.stdSerializers,
       streams: [    
         {
           level: 'trace',
           stream: prettyStdOut  || process.stdout
-        },
-        {
-          level: 'error',
-          stream: prettyStdOut || process.stderr
         }
       ]
     });
