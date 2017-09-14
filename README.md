@@ -73,13 +73,22 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 
 # Testing:
 
+@TODO: need to configure docker container ip addresses, I tested it on my local machine by looking at logs where elasticsearch and logstash were listening for input.
+
 * To test without publishing, go to the `PROJECT_ROOT` directory and run `npm link`. Sample output:
 
 		```
 		$ npm link
 		~/.nvm/versions/v7.10.0/lib/node_modules/sp-json-logger -> ~/path/to/<PROJECT_ROOT>
 		```
-* Now you can create and run tests:
+* First start logstash and elasticsearch instances
+	- run the command from root directory: `docker-compose up`
+	- once logstash and elasticsearch instances are up and running, issue following commands:
+
+	- `docker build ./ --tag tests`
+	- `docker run tests`
+
+* (Another way) Now you can create and run tests:
 		* `node test/test.1.js`
 
 				```

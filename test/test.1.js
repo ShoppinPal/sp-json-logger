@@ -1,6 +1,7 @@
 var logger = require('./../src/bunyanWrapper');
 var logstashStream = require('./utils/logstashStream');
 
+// If environment is not local, then we send logs to logstash
 if(process.env.NODE_ENV !== 'local'){
     logger.bunyanLogger.addStream({
         name: 'logstash',
