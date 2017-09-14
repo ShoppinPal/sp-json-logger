@@ -1,19 +1,5 @@
 version: '2'
 services:
-  # node:
-  #   build:
-  #     context: ./
-  #     dockerfile: ./Dockerfile
-  #   environment:
-  #     NODE_ENV: "production"
-  #     NAME: 'sp-json-logger'
-  #     APPLICATION: 'api'
-  #     PROGRAM: 'sp-json-logger'
-  #     LANGUAGE: 'javascript'
-  #   depends_on:
-  #     - logstash
-  #     - elasticsearch
-
   logstash:
     build:
       context: ./

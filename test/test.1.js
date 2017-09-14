@@ -1,19 +1,13 @@
 var logger = require('./../src/bunyanWrapper');
-var net = require('net');
-var client = new net.Socket();
+var logstashStream = require('./utils/logstashStream');
 
-// client = net.connect("9250","172.21.0.1", function(err) { //'connect' listener, connecting to local logstash instance!
-//   if(err) return;
-//   console.log('client connected');
-//   client.write(JSON.stringify("{message: 'hello world')}"));
-//   console.log('written');
-//   process.exit(0);
-// });
-
-// client.on('error', function(err) {
-//     console.log(err);
-//     process.exit(1);
-// });
+if(process.env.NODE_ENV !== 'local'){
+    logger.bunyanLogger.addStream({
+        name: 'logstash',
+        stream: logstashStream,
+        level: 'trace'
+    });
+}
 
 logger.info({log: { message: "hi"}});
 logger.debug({log: {message: 'Your string here...'}});
@@ -42,3 +36,7 @@ logger.error(explicitError);
 console.log("\n\nUsing correct format below logger.error({err: object}), thus name isn't overriden");
 // It is therefore recommended to use the following format! This way we don't override name property of bunyan.
 logger.error({err: explicitError});
+
+
+
+
