@@ -1,4 +1,19 @@
 var logger = require('./../src/bunyanWrapper');
+var net = require('net');
+var client = new net.Socket();
+
+// client = net.connect("9250","172.21.0.1", function(err) { //'connect' listener, connecting to local logstash instance!
+//   if(err) return;
+//   console.log('client connected');
+//   client.write(JSON.stringify("{message: 'hello world')}"));
+//   console.log('written');
+//   process.exit(0);
+// });
+
+// client.on('error', function(err) {
+//     console.log(err);
+//     process.exit(1);
+// });
 
 logger.info({log: { message: "hi"}});
 logger.debug({log: {message: 'Your string here...'}});

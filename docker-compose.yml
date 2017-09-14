@@ -1,24 +1,39 @@
 version: '2'
 services:
-  node:
+  # node:
+  #   build:
+  #     context: ./
+  #     dockerfile: ./Dockerfile
+  #   environment:
+  #     NODE_ENV: "production"
+  #     NAME: 'sp-json-logger'
+  #     APPLICATION: 'api'
+  #     PROGRAM: 'sp-json-logger'
+  #     LANGUAGE: 'javascript'
+  #   depends_on:
+  #     - logstash
+  #     - elasticsearch
+
+  logstash:
     build:
       context: ./
-      dockerfile: ./Dockerfile
-    environment:
-      NODE_ENV: "production"
-      NAME: 'sp-json-logger'
-      APPLICATION: 'api'
-      PROGRAM: 'sp-json-logger'
-      LANGUAGE: 'javascript'
+      dockerfile: ./logstash/Dockerfile
+    environment: 
+      - xpack.security.enabled=false
+      - XPACK_MONITORING_ENABLED=false
+    ports:
+      - 9250:9250
+      - 9600:9600
     depends_on:
       - elasticsearch
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.2.2
     container_name: elasticsearch
     environment:
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
     ulimits:
       memlock:
         soft: -1
