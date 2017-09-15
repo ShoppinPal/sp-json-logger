@@ -86,7 +86,7 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 	- once logstash and elasticsearch instances are up and running, issue following commands:
 
 	- `docker build ./ --tag tests`
-	- `docker run tests`
+	- `docker run --network=spjsonlogger_logstash tests`
 
 * (Another way) Now you can create and run tests:
 		* `node test/test.1.js`
