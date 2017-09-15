@@ -6,7 +6,7 @@ function LogstashStream(){
     LogstashStream.prototype.write = function (payload) {
         process.stdout.emit('data', payload);
         sendToLogstash(payload);
-        console.log('Logstash stream...');
+        console.log('Logstash stream.......');
     }
 }
 
@@ -17,7 +17,7 @@ function LogstashStream(){
 function sendToLogstash(payload) {
     var post_data = payload;
     var post_options = {
-        host: '172.21.0.1',
+        host: 'logstash',
         port: '9250',
         method: 'POST',
         headers: {
