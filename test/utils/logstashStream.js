@@ -1,4 +1,6 @@
 var http = require('http');
+var port = 9250;
+var host = 'logstash';
 
 module.exports = new LogstashStream();
 
@@ -15,10 +17,17 @@ function LogstashStream(){
 */
 
 function sendToLogstash(payload) {
+    postRequest(payload);
+}
+
+/*
+    Using http driver for kibana
+*/
+function postRequest(payload) {
     var post_data = payload;
     var post_options = {
-        host: 'logstash',
-        port: '9250',
+        host: host,
+        port: port,
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

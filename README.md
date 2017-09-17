@@ -11,7 +11,7 @@ npm install sp-json-logger
 var log = require('sp-json-logger');
 log.info({log: { message: "hi"}});
 ```
-**Important:** It is important to have NAME, APPLICATION, PROGRAM and LANGUAGE env variables set up before requiring the module!
+**Important:** It is important to have **NAME**, **APPLICATION**, **PROGRAM** and **LANGUAGE** env variables set up before requiring the module!
 
 # Conventions followed while logging:
 
@@ -19,7 +19,7 @@ You need to set the following environment variables for logger to work without o
 
 - **NAME:** 'Name of the logger' else will default to 'sp-json-logger'
 - **APPLICATION:** 'Name of applicaton'
-- **PROGRAM:** 'Name of module' // eg: scheduler-worker/scheduler-api
+- **PROGRAM:** 'Name of module' // eg: scheduler-worker or scheduler-api
 - **LANGUAGE:** 'Programming language used' // eg: javascript/php/go
 - **NODE_ENV:** 'environment' // note: Pretty print is supported on local environment setting, if using staging or production, you won’t get pretty json output to console.
 
@@ -82,11 +82,12 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 		~/.nvm/versions/v7.10.0/lib/node_modules/sp-json-logger -> ~/path/to/<PROJECT_ROOT>
 		```
 * First start logstash and elasticsearch instances
-	- run the command from root directory: `docker-compose up`
-	- once logstash and elasticsearch instances are up and running, issue following commands:
+	- Run the command from root directory: `docker-compose up`
+	- Once logstash, elasticsearch and kibana instances are up and running, issue following commands:
 
 	- `docker build ./ --tag tests`
 	- `docker run --network=spjsonlogger_logstash tests`
+	- View test results on kibana: `http://localhost:5061`
 
 * (Another way) Now you can create and run tests:
 		* `node test/test.1.js`
