@@ -115,7 +115,7 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 		":"the earth is round :p","name":"discovery","stack":"Some stack here....."},"msg":"the earth is round :p","time":"2017-09-13T07:39:22.115Z","v":0
 		}
 		```
-	* `NODE_ENV=local node test/test.1.js`
+	* `NODE_ENV=local node test/test.local.1.js`
 
 		```
 		[2017-09-13T07:40:26.355Z]  INFO: sp-json-logger/46861 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
