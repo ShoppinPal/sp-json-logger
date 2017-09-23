@@ -160,3 +160,8 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 		[2017-09-13T07:40:26.368Z] ERROR: sp-json-logger/46861 on Yogeshs-MacBook-Air.local: the earth is round :p (application="", program="", language="")
 			Some stack here.....
 		```
+
+# Using the parse(boolean) function
+
+If your logs contain special objects like regex, use `logger.parse(true).debug({});` or `logger.tag(TAG).parse(true).debug({});`
+
