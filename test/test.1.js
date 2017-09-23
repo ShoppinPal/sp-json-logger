@@ -1,4 +1,14 @@
-var logger = require('sp-json-logger');
+var logger = require('./../src/bunyanWrapper');
+var logstashStream = require('./utils/logstashStream');
+
+// If environment is not local, then we send logs to logstash
+if(process.env.NODE_ENV !== 'local'){
+    logger.bunyanLogger.addStream({
+        name: 'logstash',
+        stream: logstashStream,
+        level: 'trace'
+    });
+}
 
 logger.info({log: { message: "hi"}});
 logger.debug({log: {message: 'Your string here...'}});
@@ -35,3 +45,7 @@ logger.error(explicitError);
 console.log("\n\nUsing correct format below logger.error({err: object}), thus name isn't overriden");
 // It is therefore recommended to use the following format! This way we don't override name property of bunyan.
 logger.error({err: explicitError});
+
+
+
+

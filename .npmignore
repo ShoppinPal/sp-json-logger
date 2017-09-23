@@ -2,3 +2,4 @@
 test/
 logstash/
 elasticsearch/
+kibana/
