@@ -99,7 +99,7 @@ function expandProperty(object) {
     if(object.hasOwnProperty(key)) {
       if(object[key] instanceof RegExp) {
         object[key] = object[key].toString();
-      }else if(typeof object[key] == 'object') {
+      }else if(typeof object[key] === 'object') {
           expandProperty(object[key]);
       }else if(typeof object[key] === Array) {
         for(var i=0; i < object[key].length; i++) {
