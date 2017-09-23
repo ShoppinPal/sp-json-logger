@@ -163,5 +163,6 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 
 # Using the parse(boolean) function
 
-If your logs contain special objects like regex, use `logger.parse(true).debug({});` or `logger.tag(TAG).parse(true).debug({});`
+- If your logs contain special objects like regex, use `logger.parse(true).debug({});` or `logger.tag(TAG).parse(true).debug({});`
+- `parse(boolean)` method is optional, you must use it as instructed above! If it is not used, parsing is disabled by default.
 
