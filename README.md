@@ -198,7 +198,7 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 	var query = { sku: /^BA1262$/i };
 	logger.tag('Regex').debug({log: 
 		{
-			query: JSON.stringify(query, replacer)  // use the below utility method replacer!
+			query: JSON.stringify(query, replacer)  // use the utility method replacer!
 		}
 	});
 
