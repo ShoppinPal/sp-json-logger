@@ -12,23 +12,20 @@ logger.tag('myTagB').debug({log: {
 	}
 });
 
-console.log('Regex with parse(true)\n');
+console.log('\nRegex with JSON.stingify(object, replacer)\n');
 // checking regex with parse = true
 var query = { sku: /^BA1262$/i };
-logger.tag('Regex').parse(true).debug({log: {query: query}});
+logger.tag('Regex').debug({log: {
+    query: JSON.stringify(query, replacer)  // use the below utility method replacer!
+    }
+});
 
 // Checking passing regex with array
-var query2 = { log: { query: [{ sku: /^BA1262$/i }, {sku: /^BRAT$/i}] } };
-logger.tag('RegExArray').parse(true).debug(query2);
-
-console.log('Regex without parse(true)\n');
-// checking regex without parse = true
-var query = { sku: /^BA1262$/i };
-logger.tag('Regex').debug({log: {query: query}});
-
-// Checking passing regex with array
-var query2 = { log: { query: [{ sku: /^BA1262$/i }, {sku: /^BRAT$/i}] } };
-logger.tag('RegExArray').debug(query2);
+var query2 = { query: [{ sku: /^BA1262$/i }, {sku: /^BRAT$/i}] } ;
+logger.tag('RegExArray').debug({ log: {
+    query: JSON.stringify(query2, replacer) 
+    } 
+});
 
 // This does not work due to issue at: https://github.com/trentm/node-bunyan/issues/369
 //var error = new Error('the earth is flat');
@@ -48,5 +45,13 @@ console.log("\n\nUsing correct format below logger.error({err: object}), thus na
 logger.error({err: explicitError});
 
 
+/*
+    utility functions
+*/
 
-
+function replacer(key, value) {
+    if(value instanceof RegExp){
+        return value.toString();
+    }
+    return value;
+}
