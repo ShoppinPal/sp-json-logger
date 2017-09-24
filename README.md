@@ -196,15 +196,17 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 	// Then use this function to stringify object containing regex as below:
 
 	var query = { sku: /^BA1262$/i };
-	logger.tag('Regex').debug({log: {
-		query: JSON.stringify(query, replacer)  // use the below utility method replacer!
+	logger.tag('Regex').debug({log: 
+		{
+			query: JSON.stringify(query, replacer)  // use the below utility method replacer!
 		}
 	});
 
 	// Checking passing regex with array
 	var query2 = { query: [{ sku: /^BA1262$/i }, {sku: /^BRAT$/i}] } ;
-	logger.tag('RegExArray').debug({ log: {
-		query: JSON.stringify(query2, replacer) 
+	logger.tag('RegExArray').debug({log: 
+		{
+			query: JSON.stringify(query2, replacer) 
 		} 
 	});
 
