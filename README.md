@@ -211,4 +211,6 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 	});
 
 ```
+- You can also use `parse(boolean)` method for parsing an object containing regex, but it is processing heavy and use it only when you really need to and you cannot use above method for logging regex!
+eg: `logger.tag('REGEX').parse(true).debug({log: {query: query}});`
 
