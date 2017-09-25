@@ -1,0 +1,37 @@
+version: '3.1'
+services:
+  logstash:
+    container_name: logstash
+    build:
+      context: ./
+      dockerfile: ./logstash/Dockerfile
+    environment: 
+      - xpack.security.enabled=false
+      - XPACK_MONITORING_ENABLED=false
+    ports:
+      - 9250:9250
+      - 9600:9600
+    depends_on:
+      - elasticsearch
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.0
+    container_name: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    #mem_limit: 1g
+    # volumes:
+    #   - esdata1:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+  kibana:
+    image: docker.elastic.co/kibana/kibana:5.6.0
+    container_name: kibana
+    ports:
+      - 5601:5601

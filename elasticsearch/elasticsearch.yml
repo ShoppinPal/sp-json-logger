@@ -1,0 +1,19 @@
+xpack.security.enabled: false
+
+path:
+  logs: /var/log/elasticsearch
+  data: /var/data/elasticsearch
+
+path:
+  data:
+    - /mnt/elasticsearch_1
+    - /mnt/elasticsearch_2
+    - /mnt/elasticsearch_3
+
+cluster.name: logging-test
+
+node.name: logging-sp-json-logger
+
+bootstrap.memory_lock: true
+
+discovery.zen.minimum_master_nodes: 2
