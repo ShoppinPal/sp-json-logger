@@ -101,42 +101,47 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 	* `node test/test.local.1.js`
 
 		```
-		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":46852,"level":30,"application":"","program":"","language":"","log":{"message
-		":"hi"},"msg":"","time":"2017-09-13T07:39:22.107Z","v":0}
-		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":46852,"level":20,"application":"","program":"","language":"","log":{"message
-		":"Your string here..."},"msg":"","time":"2017-09-13T07:39:22.109Z","v":0}{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":46852,"level":20,"application":"","program":"","language":"","log":{"message
-		":"Successfully connected"},"tag":"myTagA","msg":"","time":"2017-09-13T07:39:22.110Z","v":0}{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":46852,"level":20,"application":"","program":"","language":"","log":{"type":"
-		AUDIT","habitable":{"planets":["mars","earth"]}},"tag":"myTagB","msg":"","time":"2017-09-13T07:39:22.110Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":19971,"level":30,"application":"","program":"","language":"","log":{"message":"hi"},"msg":"","time":"2017-09-24T19:42:54.636Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":19971,"level":20,"application":"","program":"","language":"","log":{"message":"Your string here..."},"msg":"","time":"2017-09-24T19:42:54.638Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":19971,"level":20,"application":"","program":"","language":"","log":{"message":"Successfully connected"},"tag":"myTagA","msg":"","time":"2017-09-24T19:42:54.639Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":19971,"level":20,"application":"","program":"","language":"","log":{"type":"AUDIT","habitable":{"planets":["mars","earth"]}},"tag":"myTagB","msg":"","time":"2017-09-24T19:42:54.640Z","v":0}
+
+		Regex with JSON.stingify(object, replacer)
+
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":19971,"level":20,"application":"","program":"","language":"","log":{"query":"{\"sku\":\"/^BA1262$/i\"}"},"tag":"Regex","msg":"","time":"2017-09-24T19:42:54.645Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":19971,"level":20,"application":"","program":"","language":"","log":{"query":"{\"query\":[{\"sku\":\"/^BA1262$/i\"},{\"sku\":\"/^BRAT$/i\"}]}"},"tag":"RegExArray","msg":"","time":"2017-09-24T19:42:54.646Z","v":0}
+
+
 		If we use logger.error({message: 'Your message', name: 'error name', stack: 'some stack....'});
 		It will override the bunyan name property, so such usage is discouraged. See below output for such behavior, name property is discovery instead of sp-json-logger
-		{"name":"discovery","hostname":"Yogeshs-MacBook-Air.local","pid":46852,"level":50,"application":"","program":"","language":"","message":"the earth is round :p","msg":"","time":"2017-09-13T07:39:22.114Z","v":0}
+		{"name":"discovery","hostname":"Yogeshs-MacBook-Air.local","pid":19971,"level":50,"application":"","program":"","language":"","message":"the earth is round :p","msg":"","time":"2017-09-24T19:42:54.646Z","v":0}
 
-		Using correct format below logger.error({err: object}), thus name isn't overriden{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":46852,"level":50,"application":"","program":"","language":"","err":{"message
-		":"the earth is round :p","name":"discovery","stack":"Some stack here....."},"msg":"the earth is round :p","time":"2017-09-13T07:39:22.115Z","v":0
-		}
+
+		Using correct format below logger.error({err: object}), thus name isn't overriden
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":19971,"level":50,"application":"","program":"","language":"","err":{"message":"the earth is round :p","name":"discovery","stack":"Some stack here....."},"msg":"the earth is round :p","time":"2017-09-24T19:42:54.647Z","v":0}
 		```
 	* `NODE_ENV=local node test/test.local.1.js`
 
 		```
-		[2017-09-13T07:40:26.355Z]  INFO: sp-json-logger/46861 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
+		[2017-09-24T19:40:38.524Z]  INFO: sp-json-logger/19940 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
 
 			--
 			log: {
 			"message": "hi"
 			}
-		[2017-09-13T07:40:26.359Z] DEBUG: sp-json-logger/46861 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
+		[2017-09-24T19:40:38.529Z] DEBUG: sp-json-logger/19940 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
 
 			--
 			log: {
 			"message": "Your string here..."
 			}
-		[2017-09-13T07:40:26.360Z] DEBUG: sp-json-logger/46861 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=myTagA)
+		[2017-09-24T19:40:38.531Z] DEBUG: sp-json-logger/19940 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=myTagA)
 
 			--
 			log: {
 			"message": "Successfully connected"
 			}
-		[2017-09-13T07:40:26.361Z] DEBUG: sp-json-logger/46861 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=myTagB)
+		[2017-09-24T19:40:38.531Z] DEBUG: sp-json-logger/19940 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=myTagB)
 
 			--
 			log: {
@@ -149,14 +154,63 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 			}
 			}
 
+		Regex with JSON.stingify(object, replacer)
+
+		[2017-09-24T19:40:38.537Z] DEBUG: sp-json-logger/19940 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=Regex)
+
+			--
+			log: {
+			"query": "{\"sku\":\"/^BA1262$/i\"}"
+			}
+		[2017-09-24T19:40:38.537Z] DEBUG: sp-json-logger/19940 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=RegExArray)
+
+			--
+			log: {
+			"query": "{\"query\":[{\"sku\":\"/^BA1262$/i\"},{\"sku\":\"/^BRAT$/i\"}]}"
+			}
+
 
 		If we use logger.error({message: 'Your message', name: 'error name', stack: 'some stack....'});
 		It will override the bunyan name property, so such usage is discouraged. See below output for such behavior, name property is discovery instead of sp-json-logger
-		[2017-09-13T07:40:26.367Z] ERROR: discovery/46861 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", message="the earth is round :p")
+		[2017-09-24T19:40:38.538Z] ERROR: discovery/19940 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", message="the earth is round :p")
 
 
 
 		Using correct format below logger.error({err: object}), thus name isn't overriden
-		[2017-09-13T07:40:26.368Z] ERROR: sp-json-logger/46861 on Yogeshs-MacBook-Air.local: the earth is round :p (application="", program="", language="")
+		[2017-09-24T19:40:38.539Z] ERROR: sp-json-logger/19940 on Yogeshs-MacBook-Air.local: the earth is round :p (application="", program="", language="")
 			Some stack here.....
 		```
+
+# Parsing Objects containing RegEx
+
+- If your logs contain special objects like regex, create a replacer function for `JSON.stringify(object, replacer)` as follows:
+```
+	// Replacer function for JSON.stringify() method
+	function replacer(key, value) {
+		if(value instanceof RegExp){
+			return value.toString();
+		}
+		return value;
+	}
+
+	// Then use this function to stringify object containing regex as below:
+
+	var query = { sku: /^BA1262$/i };
+	logger.tag('Regex').debug({log: 
+		{
+			query: JSON.stringify(query, replacer)  // use the utility method replacer!
+		}
+	});
+
+	// Checking passing regex with array
+	var query2 = { query: [{ sku: /^BA1262$/i }, {sku: /^BRAT$/i}] } ;
+	logger.tag('RegExArray').debug({log: 
+		{
+			query: JSON.stringify(query2, replacer) 
+		} 
+	});
+
+```
+- You can also use `parse(boolean)` method for parsing an object containing regex, but it is processing heavy and use it only when you really need to or when you cannot use above method for logging regex!
+eg: `logger.tag('REGEX').parse(true).debug({log: {query: query}});`
+
