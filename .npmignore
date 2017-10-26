@@ -1,0 +1,5 @@
+# Directories
+test/
+logstash/
+elasticsearch/
+kibana/

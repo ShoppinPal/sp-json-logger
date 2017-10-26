@@ -28,9 +28,15 @@ function Logger(config) {
   this.program = process.env.PROGRAM ? process.env.PROGRAM : '';
   this.language = process.env.LANGUAGE ? process.env.LANGUAGE : '';
   this.tagLabel = null;
+  this.shouldParse = false;
 
   this.tag = function (label) {
     this.tagLabel = label;
+    return this;
+  }
+
+  this.parse = function (_shouldParse) {
+    this.shouldParse = _shouldParse;
     return this;
   }
 
@@ -77,6 +83,9 @@ function Logger(config) {
 
   // This method appends program and language properties and also a tag if it is specified 
   this.generateLogJSON = function (payload) {
+    
+    if(this.shouldParse)
+      expandProperty(payload);
     var log = Object.assign({}, { application: this.application, program: this.program, language: this.language }, payload);
 
     if(this.tagLabel)
@@ -87,6 +96,25 @@ function Logger(config) {
 
   this.resetObjects = function () {
     this.tagLabel = ''; 
+    this.shouldParse = false;
+  }
+}
+
+// Iterate through properties and check if its a regex!
+function expandProperty(object) {
+
+  for(var key in object) {
+    if(object.hasOwnProperty(key)) {
+      if(object[key] instanceof RegExp) {
+        object[key] = object[key].toString();
+      }else if(typeof object[key] === 'object') {
+          expandProperty(object[key]);
+      }else if(typeof object[key] === Array) {
+        for(var i=0; i < object[key].length; i++) {
+          expandProperty(object[key][i]);
+        }
+      }
+    }
   }
 }
 
