@@ -89,6 +89,8 @@ function Logger(config) {
 
   // This method appends program and language properties and also a tag if it is specified 
   this.generateLogJSON = function (payload, state) {
+    if(payload === null)
+      return {};
     
     var log = {};
     if(typeof payload === 'string') {
