@@ -74,8 +74,6 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 
 # Testing:
 
-@TODO: Awaiting Harshad's approval for the Elasticsearch - Logstash - Kibana config! It is working as expected, using http driver to push logs to logstash. Created a custom stream for sp-json-logger (test/utils/logstashStream.js) for handling data transfer between logger and logstash!
-
 * To test without publishing, go to the `PROJECT_ROOT` directory and run `npm link`. Sample output:
 
 	```
