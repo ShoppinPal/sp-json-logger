@@ -1,39 +1,39 @@
 var logger = require('./../src/bunyanWrapper');
 
 
-logger.info({log: { message: "hi"}});
-logger.debug({log: {message: 'Your string here...'}});
-logger.tag('myTagA').debug({log: { message: 'Successfully connected' }});
+logger.info("hi");
+logger.debug({message: 'Your string here...'});
+logger.tag('myTagA').debug({ message: 'Successfully connected' });
 
 var planets = {planets: ['mars', 'earth']};
-logger.tag('myTagB').debug({log: {
+logger.tag('myTagB').debug({
     type: 'AUDIT',
     habitable: planets,
-	}
 });
 
 console.log('\nRegex with JSON.stingify(object, replacer)\n');
 // checking regex with parse = true
 var query = { sku: /^BA1262$/i };
-logger.tag('Regex').debug({log: {
-    query: JSON.stringify(query, replacer)  // use the utility method replacer!
-    }
-});
+logger.tag('Regex').debug({ query: JSON.stringify(query, replacer) }); // use the utility method replacer!
+
 
 // Checking passing regex with array
 var query2 = { query: [{ sku: /^BA1262$/i }, {sku: /^BRAT$/i}] } ;
-logger.tag('RegExArray').debug({ log: {
-    query: JSON.stringify(query2, replacer) 
-    } 
-});
+logger.tag('RegExArray').debug({ query: JSON.stringify(query2, replacer) });
 
-// This does not work due to issue at: https://github.com/trentm/node-bunyan/issues/369
-//var error = new Error('the earth is flat');
-//logger.error(error);
+// Checking object parse(boolean)
+var query3 = { sku: /^BA1262$/i };
+logger.parse(true).tag('parse(boolean)').debug(query3);
 
-// Whereas explicitly stating the object below works with one caveat i.e name property overrides the logger name property!
-console.log("\n\nIf we use logger.error({message: 'Your message', name: 'error name', stack: 'some stack....'});");
-console.log('It will override the bunyan name property, so such usage is discouraged. See below output for such behavior, name property is discovery instead of sp-json-logger');
+// Checking regex array with parse(boolean)
+var query4 = { query: [{ sku: /^BA1262$/i }, {sku: /^BRAT$/i}] } ;
+logger.parse(true).tag('RegExArray parse(boolean)').debug(query4);
+
+// This does not work due to issue at: https://github.com/trentm/node-bunyan/issues/369. 
+// Update: This works as of version: 1.1.0 as we are encapsulating errors inside err object using parentObject property
+var error = new Error('the earth is flat');
+logger.error(error);
+
 var explicitError = new Error();
 explicitError.message = 'the earth is round :p';
 explicitError.name = 'discovery';   
@@ -41,16 +41,22 @@ explicitError.stack = 'Some stack here.....';
 logger.error(explicitError);
 
 console.log("\n\nUsing correct format below logger.error({err: object}), thus name isn't overriden");
-// It is therefore recommended to use the following format! This way we don't override name property of bunyan.
-logger.error({err: explicitError});
+// It is therefore recommended to use the following format! This way we don't override name property of bunyan. *This statement doesn't apply to version 1.1.0*
+// Update: No longer need to use below format as of version 1.1.0
+//logger.error({err: explicitError}});
 
+/* Version 1.1.0 */
+logger.setParentObjectName('dump');
+
+logger.tag('ParentObject name changed').info('Hi....');
+logger.debug({arg: 'some arg'});
 
 /*
     utility functions
 */
 
 function replacer(key, value) {
-    if(value instanceof RegExp){
+    if(value instanceof RegExp) {
         return value.toString();
     }
     return value;
