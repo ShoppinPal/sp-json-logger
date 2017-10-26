@@ -49,7 +49,14 @@ Source: [https://www.npmjs.com/package/bunyan#levels](https://www.npmjs.com/pack
 
 # Key Notes:
 
+- Specify name of the logger in the NAME env variable to be meaningful.
 - Use tags wherever applicable i.e `logger.tag(‘TAG’).error(err);`
+- Order version required you to log by explcitly stating parent object name i.e **log** as per following example
+`logger.debug({log: {message: 'hello world'}});`. Latest version supports `logger.debug('hello world');'` syntax.
+- You can set parent object name by utilizing the method `setParentObjectName('String')` explained below.
+- As far as possible use `logger.tag('TAG');` field to describe the event for which we are logging.
+- If you just need to log a string, you can create it as follows: 
+`logger.debug('your string');`
 
 # Local environment vs Staging/Production environment:
 
@@ -60,12 +67,6 @@ Above module provided a new output stream that pretty prints json object to cons
 So during local environment, we can enjoy pretty print. During staging and production, we get normal json output which helps us to reduce the impact of performance for pretty printing.
 
 Important: Pretty print stream is a huge performance overhead, so it is recommended to use it only for local/development environment (if you ever want to modify bunyanLogger.js file inside sp-json-logger module)
-
-# Notes: 
-- Specify name of the logger in the NAME env variable to be meaningful.
-- As far as possible use `logger.tag('TAG');` field to describe the event for which we are logging.
-- If you just need to log a string, do take the pain and create it as follows: 
-`logger.debug('your string');`
 
 # setParentObjectName('String'):
 - By default, parent log object name is **log**, if you want to set another name, use `logger.setParentObjectName('dump');`. This will set parent object to be dump. This will result in following result: `eg: logger.debug({arg: 'some arg'});`
