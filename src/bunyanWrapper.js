@@ -38,7 +38,7 @@ function Logger(config) {
   }
 
   this.setParentObjectName = function (name) {
-    this.parentObject = name;
+    this.parentObject = name ? name: 'log';
   }
 
   this.parse = function (_shouldParse) {
@@ -115,6 +115,7 @@ function Logger(config) {
   this.resetObjects = function () {
     this.tagLabel = ''; 
     this.shouldParse = false;
+    this.state = constants.STATE_DEFAULT;
   }
 }
 

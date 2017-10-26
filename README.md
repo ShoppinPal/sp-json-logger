@@ -69,7 +69,11 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 - Specify name of the logger in the NAME env variable to be meaningful.
 - As far as possible use `logger.tag('TAG');` field to describe the event for which we are logging.
 - If you just need to log a string, do take the pain and create it as follows: 
-`logger.debug({ log: {message: 'your string' } });`
+`logger.debug('your string');`
+
+# setParentObjectName('String'):
+- By default, parent log object name is **log**, if you want to set another name, use `logger.setParentObjectName('dump');`. This will set parent object to be dump. This will result in following result: 
+` {"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":48412,"level":20,"application":"","program":"","language":"","dump":{"arg":"some arg"},"msg":"","time":"2017-10-26T15:34:12.405Z","v":0} `
 
 # Testing:
 
@@ -114,7 +118,6 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":48412,"level":50,"application":"","program":"","language":"","err":{"message":"the earth is round :p","name":"discovery","stack":"Some stack here....."},"msg":"the earth is round :p","time":"2017-10-26T15:34:12.404Z","v":0}
 
 
-		Using correct format below logger.error({err: object}), thus name isn't overriden
 		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":48412,"level":30,"application":"","program":"","language":"","dump":{"message":"Hi...."},"tag":"ParentObject name changed","msg":"","time":"2017-10-26T15:34:12.404Z","v":0}
 		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":48412,"level":20,"application":"","program":"","language":"","dump":{"arg":"some arg"},"msg":"","time":"2017-10-26T15:34:12.405Z","v":0}
 		```
@@ -222,11 +225,11 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 - You can also use `parse(boolean)` method for parsing an object containing regex, but it is processing heavy and use it only when you really need to or when you cannot use above method for logging regex!
 eg: `logger.tag('REGEX').parse(true).debug({log: {query: query}});`
 
-Logging object parse(boolean)
+- Logging object parse(boolean)
 `var query3 = { sku: /^BA1262$/i };`
 `logger.parse(true).tag('parse(boolean)').debug(query3);`
 
-Logging regex array with parse(boolean)
+- Logging regex array with parse(boolean)
 `var query4 = { query: [{ sku: /^BA1262$/i }, {sku: /^BRAT$/i}] };`
 `logger.parse(true).tag('RegExArray parse(boolean)').debug(query4);`
 
