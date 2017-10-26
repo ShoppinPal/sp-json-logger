@@ -50,8 +50,6 @@ Source: [https://www.npmjs.com/package/bunyan#levels](https://www.npmjs.com/pack
 # Key Notes:
 
 - Use tags wherever applicable i.e `logger.tag(‘TAG’).error(err);`
-- When logging error, pass the err object instance directly i.e rather than doing `logger.error({log: {error: err}})`, do `logger.error(err);` instead. Assuming the format of err object is `{err: {message: 'your message', name: 'some name', stack: 'some stack...'}}`! Bunyan recommends this approach and we have to make sure that it is being followed!
-Source: [https://www.npmjs.com/package/bunyan#recommendedbest-practice-fields](https://www.npmjs.com/package/bunyan#recommendedbest-practice-fields)
 
 # Local environment vs Staging/Production environment:
 
@@ -70,7 +68,7 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 `logger.debug('your string');`
 
 # setParentObjectName('String'):
-- By default, parent log object name is **log**, if you want to set another name, use `logger.setParentObjectName('dump');`. This will set parent object to be dump. This will result in following result: 
+- By default, parent log object name is **log**, if you want to set another name, use `logger.setParentObjectName('dump');`. This will set parent object to be dump. This will result in following result: `eg: logger.debug({arg: 'some arg'});`
 - ` {...{"dump":{"arg":"some arg"},"msg":"","time":"2017-10-26T15:34:12.405Z","v":0}} `
 
 # Testing:
