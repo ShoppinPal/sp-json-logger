@@ -52,11 +52,18 @@ Source: [https://www.npmjs.com/package/bunyan#levels](https://www.npmjs.com/pack
 - Specify name of the logger in the NAME env variable to be meaningful.
 - Use tags wherever applicable i.e `logger.tag(‘TAG’).error(err);`
 - Order version required you to log by explcitly stating parent object name i.e **log** as per following example
-`logger.debug({log: {message: 'hello world'}});`. Latest version supports `logger.debug('hello world');'` syntax.
+
+
+		`logger.debug({log: {message: 'hello world'}});`. 
+
+	Latest version supports
+
+		`logger.debug('hello world');'` syntax.
 - You can set parent object name by utilizing the method `setParentObjectName('String')` explained below.
 - As far as possible use `logger.tag('TAG');` field to describe the event for which we are logging.
 - If you just need to log a string, you can create it as follows: 
-`logger.debug('your string');`
+
+	`logger.debug('your string');`
 
 # Local environment vs Staging/Production environment:
 
@@ -69,8 +76,16 @@ So during local environment, we can enjoy pretty print. During staging and produ
 Important: Pretty print stream is a huge performance overhead, so it is recommended to use it only for local/development environment (if you ever want to modify bunyanLogger.js file inside sp-json-logger module)
 
 # setParentObjectName('String'):
-- By default, parent log object name is **log**, if you want to set another name, use `logger.setParentObjectName('dump');`. This will set parent object to be dump. This will result in following result: `eg: logger.debug({arg: 'some arg'});`
-- ` {...{"dump":{"arg":"some arg"},"msg":"","time":"2017-10-26T15:34:12.405Z","v":0}} `
+- By default, parent log object name is **log**, if you want to set another name, use 
+
+	`logger.setParentObjectName('dump');`. 
+
+	This will set parent object to be dump. This will result in following result: 
+	
+	`eg: logger.debug({arg: 'some arg'});`
+```
+ {...{"dump":{"arg":"some arg"},"msg":"","time":"2017-10-26T15:34:12.405Z","v":0}} 
+```
 
 # Testing:
 
@@ -82,7 +97,9 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 	```
 * First start logstash and elasticsearch instances
 	* Run the command from root directory: `docker-compose up`
-	* Once logstash, elasticsearch and kibana instances are up and running, build the docker image for tests: `docker build ./ --tag tests`
+	* Once logstash, elasticsearch and kibana instances are up and running, build the docker image for tests: 
+	
+		`docker build ./ --tag tests`
 	* Figure out the default network running the ELK stack:
 
 		```
@@ -90,7 +107,9 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 		NETWORK ID          NAME                    DRIVER              SCOPE
 		009031fa9b3f        spjsonlogger_default    bridge              local
 		```
-	* Attach and run the tests on that network: `docker run --network=spjsonlogger_default tests`
+	* Attach and run the tests on that network: 
+	
+		`docker run --network=spjsonlogger_default tests`
 	* View test results on kibana: `http://localhost:5601`
         * You must run the tests first before coming here if you want to see meaningful data
 		* `Time Filter field name` should be set to `time`
@@ -206,7 +225,9 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 
 # Parsing Objects containing RegEx
 
-- If your logs contain special objects like regex, create a replacer function for `JSON.stringify(object, replacer)` as follows:
+- If your logs contain special objects like regex, create a replacer function for 
+
+	`JSON.stringify(object, replacer)` as follows:
 ```
 	// Replacer function for JSON.stringify() method
 	function replacer(key, value) {
@@ -229,10 +250,15 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 - You can also use `parse(boolean)` method for parsing an object containing regex, but it is processing heavy and use it only when you really need to or when you cannot use above method for logging regex!
 
 - Logging object parse(boolean)
-`var query3 = { sku: /^BA1262$/i };`
-`logger.parse(true).tag('parse(boolean)').debug(query3);`
+
+	```
+	var query3 = { sku: /^BA1262$/i };`
+	logger.parse(true).tag('parse(boolean)').debug(query3);
+	```
 
 - Logging regex array with parse(boolean)
-`var query4 = { query: [{ sku: /^BA1262$/i }, {sku: /^BRAT$/i}] };`
-`logger.parse(true).tag('RegExArray parse(boolean)').debug(query4);`
+	```
+	var query4 = { query: [{ sku: /^BA1262$/i }, {sku: /^BRAT$/i}] };
+	logger.parse(true).tag('RegExArray parse(boolean)').debug(query4);
+	```
 
