@@ -51,14 +51,14 @@ Source: [https://www.npmjs.com/package/bunyan#levels](https://www.npmjs.com/pack
 
 - Specify name of the logger in the NAME env variable to be meaningful.
 - Use tags wherever applicable i.e `logger.tag(‘TAG’).error(err);`
-- Order version required you to log by explcitly stating parent object name i.e **log** as per following example
+- Order version required you to log by explcitly stating parent object name i.e **log** as per following example:
 
 
 	`logger.debug({log: {message: 'hello world'}});`. 
 
 	Latest version supports
 
-	`logger.debug('hello world');'` syntax.
+	`logger.debug('hello world');` syntax.
 - You can set parent object name by utilizing the method `setParentObjectName('String')` explained below.
 - As far as possible use `logger.tag('TAG');` field to describe the event for which we are logging.
 - If you just need to log a string, you can create it as follows: 
@@ -75,16 +75,33 @@ So during local environment, we can enjoy pretty print. During staging and produ
 
 Important: Pretty print stream is a huge performance overhead, so it is recommended to use it only for local/development environment (if you ever want to modify bunyanLogger.js file inside sp-json-logger module)
 
-# setParentObjectName('String'):
-- By default, parent log object name is **log**, if you want to set another name, use 
+# setParentObjectName('String')
 
-	`logger.setParentObjectName('dump');`. 
+If we are not setting the parent object name, it defaults to `log`. But if we use `setParentObjectName('dump')` then the parent object name will become `dump`.
 
-	This will set parent object to be dump. This will result in following result: 
-	
-	`eg: logger.debug({arg: 'some arg'});`
+Eg: Without `setParentObjectName('String')`
+
 ```
- {...{"dump":{"arg":"some arg"},"msg":"","time":"2017-10-26T15:34:12.405Z","v":0}} 
+logger.info('hello world');
+```
+It will output log as : 
+
+`{..., {log: {message: 'hello world'},... }`
+
+Eg: With `setParentObjectName('String')`
+
+```
+logger.setParentObjectName('dump');
+logger.info('hello world with dump');
+
+# Again calling setParentObjectName('String')
+logger.setParentObjectName('payload');
+logger.info('hello world with payload');
+```
+It will output log as : 
+```
+{..., {dump: {message: 'hello world with dump'},... }
+{..., {payload: {message: 'hello world with payload'},... }
 ```
 
 # Testing:
