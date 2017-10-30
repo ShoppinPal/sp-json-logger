@@ -54,11 +54,11 @@ Source: [https://www.npmjs.com/package/bunyan#levels](https://www.npmjs.com/pack
 - Order version required you to log by explcitly stating parent object name i.e **log** as per following example
 
 
-		`logger.debug({log: {message: 'hello world'}});`. 
+	`logger.debug({log: {message: 'hello world'}});`. 
 
 	Latest version supports
 
-		`logger.debug('hello world');'` syntax.
+	`logger.debug('hello world');'` syntax.
 - You can set parent object name by utilizing the method `setParentObjectName('String')` explained below.
 - As far as possible use `logger.tag('TAG');` field to describe the event for which we are logging.
 - If you just need to log a string, you can create it as follows: 
@@ -236,9 +236,10 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 		}
 		return value;
 	}
+```
+	Then use this function to stringify object containing regex as below:
 
-	// Then use this function to stringify object containing regex as below:
-
+```
 	var query = { sku: /^BA1262$/i };
 	logger.tag('Regex').debug({ query: JSON.stringify(query, replacer) });  // use the utility method replacer!
 
