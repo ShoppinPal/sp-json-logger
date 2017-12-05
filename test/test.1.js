@@ -65,7 +65,7 @@ logger.debug({arg: 'some arg'});
 
 /* Version 2.0.0 */
 var demo = {text: 'hello world', number: 0000, obj: {a: 'a'} };
-logger.filter({demo: ['text']}).debug({demo: demo});
+logger.filter({demo: ['text'], someObj: ['q']}).debug({demo: demo, someObj: {p: 'content..', q: 'q' }});
 logger.filter({demo: ['number', 'obj']}).debug({demo: demo});
 
 /*

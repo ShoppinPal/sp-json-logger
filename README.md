@@ -74,36 +74,6 @@ Above module provided a new output stream that pretty prints json object to cons
 So during local environment, we can enjoy pretty print. During staging and production, we get normal json output which helps us to reduce the impact of performance for pretty printing.
 
 Important: Pretty print stream is a huge performance overhead, so it is recommended to use it only for local/development environment (if you ever want to modify bunyanLogger.js file inside sp-json-logger module)
-
-# setParentObjectName('String')
-
-If we are not setting the parent object name, it defaults to `log`. But if we use `setParentObjectName('dump')` then the parent object name will become `dump`.
-
-Eg: Without `setParentObjectName('String')`
-
-```
-logger.info('hello world');
-```
-It will output log as : 
-
-`{..., {log: {message: 'hello world'},... }`
-
-Eg: With `setParentObjectName('String')`
-
-```
-logger.setParentObjectName('dump');
-logger.info('hello world with dump');
-
-# Again calling setParentObjectName('String')
-logger.setParentObjectName('payload');
-logger.info('hello world with payload');
-```
-It will output log as : 
-```
-{..., {dump: {message: 'hello world with dump'},... }
-{..., {payload: {message: 'hello world with payload'},... }
-```
-
 # Testing:
 
 * To test without publishing, go to the `PROJECT_ROOT` directory and run `npm link`. Sample output:
@@ -239,7 +209,81 @@ It will output log as :
 			"arg": "some arg"
 			}
 		```
+# setParentObjectName('String')
 
+If we are not setting the parent object name, it defaults to `log`. But if we use `setParentObjectName('dump')` then the parent object name will become `dump`.
+
+Eg: Without `setParentObjectName('String')`
+
+```
+logger.info('hello world');
+```
+It will output log as : 
+
+`{..., {log: {message: 'hello world'},... }`
+
+Eg: With `setParentObjectName('String')`
+
+```
+logger.setParentObjectName('dump');
+logger.info('hello world with dump');
+
+# Again calling setParentObjectName('String')
+logger.setParentObjectName('payload');
+logger.info('hello world with payload');
+```
+It will output log as : 
+```
+{..., {dump: {message: 'hello world with dump'},... }
+{..., {payload: {message: 'hello world with payload'},... }
+```
+# Filtering objects while logging
+
+To filter objects, you can use `filter({object: ['key1', 'key2']})` function.
+
+Syntax: 
+
+	`logger.filter({someObject: ['key1', 'key2']}).debug({someObject: object});` 
+
+Here `someObject` is the object whose key needs to be filtered. The value for `someObject` is the array of keys which we want to keep in it during logging.
+
+So `someObject` acts as an alias to `object` that will be filtered in the debug function. Example is given below.
+
+Ensure a syntax requirement for filter to work in the example below. In the `debug()` function we need to pass our payload as a property of object.
+
+	Eg: `debug({someObject: object});`
+
+Notice the `{someObject: object}`. Here we need to define `someObject` key as the object name that we pass to the filter function.
+
+```
+// object to filter `demo`
+var demo = {text: 'hello world', number: 0000, obj: {a: 'a'} };
+// (1)
+logger.filter({demo: ['text']}).debug({demo: demo, someObj: 'content..'});
+// (2)
+logger.filter({demo: ['number', 'obj']}).debug({demo: demo});
+```
+
+This will result in the following output:
+
+```
+// (1)
+log:{
+	"demo": {
+        "text": "hello world"
+      },
+      "someObj": "content.."
+    }
+// (2)
+log:{
+      "demo": {
+        "number": 0,
+        "obj": {
+          "a": "a"
+        }
+      }
+    }
+```
 # Parsing Objects containing RegEx
 
 - If your logs contain special objects like regex, create a replacer function for 
