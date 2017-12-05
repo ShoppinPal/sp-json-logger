@@ -12,7 +12,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "bunyan": "1.8.12"
+    "bunyan": "1.8.12",
+    "clone-deep": "2.0.1"
   },
   "repository": {
     "type": "git",
