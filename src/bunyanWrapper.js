@@ -104,10 +104,16 @@ function Logger(config) {
   this.generateLogJSON = function (_payload, state) {
     if(_payload === null)
       return {};
-    var payload = cloneDeep(_payload);
+    var payload = _payload;
 
     if(this.shouldFilter) {
+      payload = cloneDeep(_payload);
       filterObjects(this.filterObject, payload);
+    }
+
+    if(this.shouldParse) {
+      payload = cloneDeep(_payload);
+      expandProperty(payload);
     }
     
     var log = {};
@@ -123,8 +129,7 @@ function Logger(config) {
         });
     }
 
-    if(this.shouldParse)
-      expandProperty(payload);
+    
 
     if(this.tagLabel)
       log.tag = this.tagLabel;
