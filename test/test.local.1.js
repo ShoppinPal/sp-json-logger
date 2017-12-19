@@ -53,8 +53,8 @@ logger.debug({arg: 'some arg'});
 
 /* Version 2.0.0 */
 var demo = {text: 'hello world', number: 0000, obj: {a: 'a', b: 'b'} };
-logger.filter({demo: ['text'], someObj: ['q']}).debug({demo: demo, someObj: {p: 'content..', q: 'q' }});
-logger.filter({demo: ['number', 'obj']}).debug({demo: demo});
+logger.filter({demo: ['text'], someObj: ['p']}).debug({demo, someObj: {p: 'content..', q: 'q' }});
+logger.filter({demo: ['number', 'obj']}).debug({demo});
 
 /*
     utility functions

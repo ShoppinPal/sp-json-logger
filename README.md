@@ -259,9 +259,9 @@ Notice the `{someObject: object}`. Here we need to define `someObject` key as th
 // object to filter `demo`
 var demo = {text: 'hello world', number: 0000, obj: {a: 'a'} };
 // (1)
-logger.filter({demo: ['text']}).debug({demo: demo, someObj: 'content..'});
+logger.filter({demo: ['text']}).debug({demo, someObj: 'content..'});
 // (2)
-logger.filter({demo: ['number', 'obj']}).debug({demo: demo});
+logger.filter({demo: ['number', 'obj']}).debug({demo});
 ```
 
 This will result in the following output:
