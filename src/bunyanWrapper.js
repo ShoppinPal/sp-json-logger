@@ -2,6 +2,7 @@
     Wrapper implementation 
 */
 var bunyan = require('bunyan');
+const cloneDeep = require('clone-deep');
 const constants = require('./utils/constants.js');
 var env = process.env.NODE_ENV;
 var PrettyStream = require('./utils/bunyan-pretty-stream/lib/prettystream');
@@ -26,11 +27,13 @@ function Logger(config) {
     });
 
   this.parentObject = 'log';
+  this.filterObject = {};
   this.application = process.env.APPLICATION ? process.env.APPLICATION : '';
   this.program = process.env.PROGRAM ? process.env.PROGRAM : '';
   this.language = process.env.LANGUAGE ? process.env.LANGUAGE : '';
   this.tagLabel = null;
   this.shouldParse = false;
+  this.shouldFilter = false;
 
   this.tag = function (label) {
     this.tagLabel = label;
@@ -43,6 +46,16 @@ function Logger(config) {
 
   this.parse = function (_shouldParse) {
     this.shouldParse = _shouldParse;
+    return this;
+  }
+
+  /**
+   * @param
+   * objectArrays - Data structure with object as `array key` and properties to filter as `array values`
+   */
+  this.filter = function (_filterObject) {
+    this.shouldFilter = true;
+    this.filterObject =  _filterObject;
     return this;
   }
 
@@ -88,9 +101,20 @@ function Logger(config) {
   }
 
   // This method appends program and language properties and also a tag if it is specified 
-  this.generateLogJSON = function (payload, state) {
-    if(payload === null)
+  this.generateLogJSON = function (_payload, state) {
+    if(_payload === null)
       return {};
+    var payload = _payload;
+
+    if(this.shouldFilter) {
+      payload = cloneDeep(_payload);
+      filterObjects(this.filterObject, payload);
+    }
+
+    if(this.shouldParse) {
+      payload = cloneDeep(_payload);
+      expandProperty(payload);
+    }
     
     var log = {};
     if(typeof payload === 'string') {
@@ -105,8 +129,7 @@ function Logger(config) {
         });
     }
 
-    if(this.shouldParse)
-      expandProperty(payload);
+    
 
     if(this.tagLabel)
       log.tag = this.tagLabel;
@@ -117,6 +140,8 @@ function Logger(config) {
   this.resetObjects = function () {
     this.tagLabel = ''; 
     this.shouldParse = false;
+    this.shouldFilter = false;
+    this.filterObject = {};
     this.state = constants.STATE_DEFAULT;
   }
 }
@@ -137,6 +162,18 @@ function expandProperty(object) {
       }
     }
   }
+}
+
+function filterObjects (filterObject, payload) {
+  Object.keys(filterObject).forEach(function (object) {
+    // values inside filterKeys are to be kept and remaining keys needs to be removed from payload object
+    var filterKeys = filterObject[object]; 
+    Object.keys(payload[object]).forEach(function(key) {
+      if (filterKeys.indexOf(key) < 0) {
+        delete payload[object][key];
+      }
+    });
+  });
 }
 
 module.exports = new Logger;

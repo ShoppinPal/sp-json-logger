@@ -45,11 +45,16 @@ logger.error(explicitError);
 // Update: No longer need to use below format as of version 1.1.0
 //logger.error({err: explicitError}});
 
-/* Version 1.1.0 */
+/* Version 1.1.0 (Will be included in v2.0.0) */
 logger.setParentObjectName('dump');
 
 logger.tag('ParentObject name changed').info('Hi....');
 logger.debug({arg: 'some arg'});
+
+/* Version 2.0.0 */
+var demo = {text: 'hello world', number: 0000, obj: {a: 'a', b: 'b'} };
+logger.filter({demo: ['text'], someObj: ['p']}).debug({demo, someObj: {p: 'content..', q: 'q' }});
+logger.filter({demo: ['number', 'obj']}).debug({demo});
 
 /*
     utility functions
