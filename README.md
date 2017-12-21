@@ -1,6 +1,8 @@
 
-(Still under development) sp-json-logger is **a simple and fast JSON logging library** for node.js services. It is a wrapper module which adds more functionality and conventions to the bunyan logger.
 
+
+sp-json-logger is **a simple and fast JSON logging library** for node.js services. It is a wrapper module which adds more functionality and conventions to the bunyan logger.
+Readme for [version 1.0.9 ](https://github.com/ShoppinPal/sp-json-logger/blob/develop/Readme-1.0.9.md)
 # Installation
 
 ```sh
