@@ -1,6 +1,6 @@
 {
   "name": "sp-json-logger",
-  "version": "1.0.9",
+  "version": "2.0.0",
   "description": "wrapper to bunyan logger",
   "main": "./src/bunyanWrapper.js",
   "scripts": {
@@ -12,7 +12,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "bunyan": "1.8.12"
+    "bunyan": "1.8.12",
+    "clone-deep": "2.0.1"
   },
   "repository": {
     "type": "git",

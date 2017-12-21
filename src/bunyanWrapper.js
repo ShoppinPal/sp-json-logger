@@ -2,6 +2,8 @@
     Wrapper implementation 
 */
 var bunyan = require('bunyan');
+const cloneDeep = require('clone-deep');
+const constants = require('./utils/constants.js');
 var env = process.env.NODE_ENV;
 var PrettyStream = require('./utils/bunyan-pretty-stream/lib/prettystream');
 
@@ -24,15 +26,22 @@ function Logger(config) {
       ]
     });
 
+  this.parentObject = 'log';
+  this.filterObject = {};
   this.application = process.env.APPLICATION ? process.env.APPLICATION : '';
   this.program = process.env.PROGRAM ? process.env.PROGRAM : '';
   this.language = process.env.LANGUAGE ? process.env.LANGUAGE : '';
   this.tagLabel = null;
   this.shouldParse = false;
+  this.shouldFilter = false;
 
   this.tag = function (label) {
     this.tagLabel = label;
     return this;
+  }
+
+  this.setParentObjectName = function (name) {
+    this.parentObject = name ? name: 'log';
   }
 
   this.parse = function (_shouldParse) {
@@ -40,53 +49,87 @@ function Logger(config) {
     return this;
   }
 
+  /**
+   * @param
+   * objectArrays - Data structure with object as `array key` and properties to filter as `array values`
+   */
+  this.filter = function (_filterObject) {
+    this.shouldFilter = true;
+    this.filterObject =  _filterObject;
+    return this;
+  }
+
   // Wrapper method for debug
   this.info = function (payload) {
-    var log = this.generateLogJSON(payload);
+    var log = this.generateLogJSON(payload, constants.STATE_INFO);
     this.bunyanLogger.info(log);
     this.resetObjects();
   }
 
   // Wrapper method for trace
   this.trace = function (payload) {
-    var log = this.generateLogJSON(payload);
+    var log = this.generateLogJSON(payload, constants.STATE_TRACE);
     this.bunyanLogger.trace(log);
     this.resetObjects();
   }
 
   // Wrapper method for debug
   this.debug = function (payload) {
-    var log = this.generateLogJSON(payload);
+    var log = this.generateLogJSON(payload, constants.STATE_DEBUG);
     this.bunyanLogger.debug(log);
     this.resetObjects();
   }
 
   // Wrapper method for error
   this.error = function (payload) {
-    var err = this.generateLogJSON(payload);
+    var err = this.generateLogJSON(payload, constants.STATE_ERROR);
     this.bunyanLogger.error(err);
     this.resetObjects();
   }
 
   this.warn = function (payload) {
-    var log = this.generateLogJSON(payload);
+    var log = this.generateLogJSON(payload, constants.STATE_WARN);
     this.bunyanLogger.warn(log);
     this.resetObjects();
   }
 
   // Wrapper method for fatal
   this.fatal = function (payload) {
-    var log = this.generateLogJSON(payload);
+    var log = this.generateLogJSON(payload, constants.STATE_FATAL);
     this.bunyanLogger.fatal(log);
     this.resetObjects();
   }
 
   // This method appends program and language properties and also a tag if it is specified 
-  this.generateLogJSON = function (payload) {
-    
-    if(this.shouldParse)
+  this.generateLogJSON = function (_payload, state) {
+    if(_payload === null)
+      return {};
+    var payload = _payload;
+
+    if(this.shouldFilter) {
+      payload = cloneDeep(_payload);
+      filterObjects(this.filterObject, payload);
+    }
+
+    if(this.shouldParse) {
+      payload = cloneDeep(_payload);
       expandProperty(payload);
-    var log = Object.assign({}, { application: this.application, program: this.program, language: this.language }, payload);
+    }
+    
+    var log = {};
+    if(typeof payload === 'string') {
+      log = Object.assign({}, { application: this.application, program: this.program, language: this.language }, 
+        { 
+          [state === constants.STATE_ERROR ? 'err' : this.parentObject]: {message: payload} 
+        });
+    }else if (typeof payload === 'object') {
+      log = Object.assign({}, { application: this.application, program: this.program, language: this.language }, 
+        { 
+          [state === constants.STATE_ERROR ? 'err' : this.parentObject]: payload 
+        });
+    }
+
+    
 
     if(this.tagLabel)
       log.tag = this.tagLabel;
@@ -97,10 +140,13 @@ function Logger(config) {
   this.resetObjects = function () {
     this.tagLabel = ''; 
     this.shouldParse = false;
+    this.shouldFilter = false;
+    this.filterObject = {};
+    this.state = constants.STATE_DEFAULT;
   }
 }
 
-// Iterate through properties and check if its a regex!
+// Iterate through properties and check if it is a regex!
 function expandProperty(object) {
 
   for(var key in object) {
@@ -116,6 +162,18 @@ function expandProperty(object) {
       }
     }
   }
+}
+
+function filterObjects (filterObject, payload) {
+  Object.keys(filterObject).forEach(function (object) {
+    // values inside filterKeys are to be kept and remaining keys needs to be removed from payload object
+    var filterKeys = filterObject[object]; 
+    Object.keys(payload[object]).forEach(function(key) {
+      if (filterKeys.indexOf(key) < 0) {
+        delete payload[object][key];
+      }
+    });
+  });
 }
 
 module.exports = new Logger;
