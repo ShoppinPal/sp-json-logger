@@ -56,6 +56,8 @@ var demo = {text: 'hello world', number: 0000, obj: {a: 'a', b: 'b'} };
 logger.filter({demo: ['text'], someObj: ['p']}).debug({demo, someObj: {p: 'content..', q: 'q' }});
 logger.filter({demo: ['number', 'obj']}).debug({demo});
 
+/* Version 2.0.1 (support for following error logging syntax) */
+logger.tag('hello error').error({ message: 'Some error', err: explicitError });
 /*
     utility functions
 */
