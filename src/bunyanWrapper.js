@@ -117,19 +117,28 @@ function Logger(config) {
     }
     
     var log = {};
-    if(typeof payload === 'string') {
-      log = Object.assign({}, { application: this.application, program: this.program, language: this.language }, 
-        { 
-          [state === constants.STATE_ERROR ? 'err' : this.parentObject]: {message: payload} 
+    if (typeof payload === 'string') {
+      log = Object.assign({}, { application: this.application, program: this.program, language: this.language },
+        {
+          [state === constants.STATE_ERROR ? 'err' : this.parentObject]: { message: payload }
         });
-    }else if (typeof payload === 'object') {
-      log = Object.assign({}, { application: this.application, program: this.program, language: this.language }, 
-        { 
-          [state === constants.STATE_ERROR ? 'err' : this.parentObject]: payload 
-        });
-    }
+    } else if (typeof payload === 'object') {
+      if (state === constants.STATE_ERROR) {
+        var errorObject = payload.err || payload.error;
+        if (errorObject) {
+          delete payload.err;
+          delete payload.error;
+        }
+        else {
+          errorObject = payload;
+        }
+        log = Object.assign({}, { application: this.application, program: this.program, language: this.language }, { err: errorObject }, payload);
+      }
+      else {
+        log = Object.assign({}, { application: this.application, program: this.program, language: this.language }, { [this.parentObject]: payload });
+      }
 
-    
+    }
 
     if(this.tagLabel)
       log.tag = this.tagLabel;
