@@ -10,7 +10,8 @@ npm install sp-json-logger
 ```
 
 ```js
-var log = require('sp-json-logger');
+var log = require('sp-json-logger')(); // without passing config object
+var log = require('sp-json-logger')({fileName: __filename}); // passing config object
 log.info('hi');
 ```
 **Important:** It is important to have **NAME**, **APPLICATION**, **PROGRAM** and **LANGUAGE** env variables set up before requiring the module!
