@@ -1,3 +1,10 @@
+v2.1.0
+- Pass config object while instantiating logger object.
+- Currently config object only suports `fileName` property.
+
+v2.0.1
+- Fix for error object not printing stack trace
+
 v2.0
 
 
