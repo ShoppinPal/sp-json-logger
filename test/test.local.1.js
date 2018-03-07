@@ -1,4 +1,4 @@
-var logger = require('./../src/bunyanWrapper');
+var logger = require('./../src/bunyanWrapper')({fileName: __filename});
 
 
 logger.info("hi");

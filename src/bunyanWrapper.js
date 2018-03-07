@@ -28,6 +28,7 @@ function Logger(config) {
 
   this.parentObject = 'log';
   this.filterObject = {};
+  this.fileName = config && config.fileName || '';
   this.application = process.env.APPLICATION ? process.env.APPLICATION : '';
   this.program = process.env.PROGRAM ? process.env.PROGRAM : '';
   this.language = process.env.LANGUAGE ? process.env.LANGUAGE : '';
@@ -143,6 +144,9 @@ function Logger(config) {
     if(this.tagLabel)
       log.tag = this.tagLabel;
 
+    if(this.fileName)
+      log.fileName = this.fileName;
+
     return log;
   }
 
@@ -185,4 +189,4 @@ function filterObjects (filterObject, payload) {
   });
 }
 
-module.exports = new Logger;
+module.exports = (config) => new Logger(config);

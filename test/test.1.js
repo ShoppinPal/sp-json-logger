@@ -1,4 +1,4 @@
-var logger = require('./../src/bunyanWrapper');
+var logger = require('./../src/bunyanWrapper')({fileName: __filename});
 var logstashStream = require('./utils/logstashStream');
 
 // If environment is not local, then we send logs to logstash
