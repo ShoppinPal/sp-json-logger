@@ -1,3 +1,7 @@
+v2.1.2
+- Intelligent error object detection. If we pass custom object inside error log, it will be encapsulated into `log` object or whichever object name is set using `setParentObjectName()`.
+But if we are passing an error object instance, it will be encapsulated inside `err` object.
+
 v2.1.1
 - Error logging output changed. Previously any property logged other than `err` was at the same level as the `err` object.
 Now it has been changed to be wrapped inside a parentObject (log by default).
