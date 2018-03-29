@@ -131,7 +131,7 @@ function Logger(config) {
           delete payload.error;
         }
         else {
-          errorObject = payload;
+          errorObject = payload instanceof Error ? payload : undefined;
         }
         log = Object.assign({}, { application: this.application, program: this.program, language: this.language }, { err: errorObject }, { [this.parentObject]: payload });
       }

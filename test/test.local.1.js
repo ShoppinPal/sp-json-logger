@@ -68,6 +68,7 @@ logger.tag('hello error').error({ message: 'Some error', err: explicitError });
 logger.setParentObjectName('log');
 logger.error({ message: 'My custom error message', functionName: 'hello()', err: explicitError});
 
+logger.tag('Not-Error-Instance').error({ message: 'My custom error message', functionName: 'hello()'});
 /*
     utility functions
 */
