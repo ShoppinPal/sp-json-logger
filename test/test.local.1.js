@@ -58,6 +58,16 @@ logger.filter({demo: ['number', 'obj']}).debug({demo});
 
 /* Version 2.0.1 (support for following error logging syntax) */
 logger.tag('hello error').error({ message: 'Some error', err: explicitError });
+
+/* 
+* Version 2.1.1 
+* Below we are calling `setParentObjectName('log)` to again reassign parent object name to `log`.
+* It was set as `dump` before. It can be verified by checking the log outputs when you run the tests.
+*/
+
+logger.setParentObjectName('log');
+logger.error({ message: 'My custom error message', functionName: 'hello()', err: explicitError});
+
 /*
     utility functions
 */

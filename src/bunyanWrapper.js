@@ -133,7 +133,7 @@ function Logger(config) {
         else {
           errorObject = payload;
         }
-        log = Object.assign({}, { application: this.application, program: this.program, language: this.language }, { err: errorObject }, payload);
+        log = Object.assign({}, { application: this.application, program: this.program, language: this.language }, { err: errorObject }, { [this.parentObject]: payload });
       }
       else {
         log = Object.assign({}, { application: this.application, program: this.program, language: this.language }, { [this.parentObject]: payload });
