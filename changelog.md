@@ -1,3 +1,7 @@
+v2.1.1
+- Error logging output changed. Previously any property logged other than `err` was at the same level as the `err` object.
+Now it has been changed to be wrapped inside a parentObject (log by default).
+    
 v2.1.0
 - Pass config object while instantiating logger object.
 - Currently config object only suports `fileName` property.

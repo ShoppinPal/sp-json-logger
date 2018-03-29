@@ -109,108 +109,197 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 	* `node test/test.local.1.js`
 
 		```
-		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":49588,"level":20,"application":"","program":"","language":"","log":{"query":"{\"sku\":\"/^BA1262$/i\"}"},"tag":"Regex","msg":"","time":"2017-10-26T16:31:40.729Z","v":0}
-		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":49588,"level":20,"application":"","program":"","language":"","log":{"query":"{\"query\":[{\"sku\":\"/^BA1262$/i\"},{\"sku\":\"/^BRAT$/i\"}]}"},"tag":"RegExArray","msg":"","time":"2017-10-26T16:31:40.730Z","v":0}
-		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":49588,"level":20,"application":"","program":"","language":"","log":{"sku":"/^BA1262$/i"},"tag":"parse(boolean)","msg":"","time":"2017-10-26T16:31:40.730Z","v":0}
-		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":49588,"level":20,"application":"","program":"","language":"","log":{"query":[{"sku":"/^BA1262$/i"},{"sku":"/^BRAT$/i"}]},"tag":"RegExArray parse(boolean)","msg":"","time":"2017-10-26T16:31:40.730Z","v":0}
-		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":49588,"level":50,"application":"","program":"","language":"","err":{"message":"the earth is flat","name":"Error","stack":"Error: the earth is flat\n    at Object.<anonymous> (/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js:34:13)\n    at Module._compile (module.js:570:32)\n    at Object.Module._extensions..js (module.js:579:10)\n    at Module.load (module.js:487:32)\n    at tryModuleLoad (module.js:446:12)\n    at Function.Module._load (module.js:438:3)\n    at Module.runMain (module.js:604:10)\n    at run (bootstrap_node.js:389:7)\n    at startup (bootstrap_node.js:149:9)\n    at bootstrap_node.js:504:3"},"msg":"the earth is flat","time":"2017-10-26T16:31:40.732Z","v":0}
-		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":49588,"level":50,"application":"","program":"","language":"","err":{"message":"the earth is round :p","name":"discovery","stack":"Some stack here....."},"msg":"the earth is round :p","time":"2017-10-26T16:31:40.733Z","v":0}
-		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":49588,"level":30,"application":"","program":"","language":"","dump":{"message":"Hi...."},"tag":"ParentObject name changed","msg":"","time":"2017-10-26T16:31:40.733Z","v":0}
-		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":49588,"level":20,"application":"","program":"","language":"","dump":{"arg":"some arg"},"msg":"","time":"2017-10-26T16:31:40.733Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":30,"application":"","program":"","language":"","log":{"messag
+		e":"hi"},"fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"","time":"2018-03-28T18:22:45.923Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":20,"application":"","program":"","language":"","log":{"message":"Your string here..."},"fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"","time":"2018-03-28T18:22:45.928Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":20,"application":"","program":"","language":"","log":{"message":"Successfully connected"},"tag":"myTagA","fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"","time":"2018-03-28T18:22:45.931Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":20,"application":"","program":"","language":"","log":{"type":
+		"AUDIT","habitable":{"planets":["mars","earth"]}},"tag":"myTagB","fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","
+		msg":"","time":"2018-03-28T18:22:45.932Z","v":0}
+
+		Regex with JSON.stingify(object, replacer)
+
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":20,"application":"","program":"","language":"","log":{"query"
+		:"{\"sku\":\"/^BA1262$/i\"}"},"tag":"Regex","fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"","time":"2018-03-28T18:22:45.942Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":20,"application":"","program":"","language":"","log":{"query":"{\"query\":[{\"sku\":\"/^BA1262$/i\"},{\"sku\":\"/^BRAT$/i\"}]}"},"tag":"RegExArray","fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"","time":"2018-03-28T18:22:45.942Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":20,"application":"","program":"","language":"","log":{"sku":"/^BA1262$/"},"tag":"parse(boolean)","fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"","time":"2018-03-28T18:22:45.944Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":20,"application":"","program":"","language":"","log":{"query":[{"sku":"/^BA1262$/"},{"sku":"/^BRAT$/"}]},"tag":"RegExArray parse(boolean)","fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"","time":"2018-03-28T18:22:45.945Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":50,"application":"","program":"","language":"","err":{"message":"the earth is flat","name":"Error","stack":"Error: the earth is flat\n    at Object.<anonymous> (/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js:34:13)\n    at Module._compile (module.js:570:32)\n    at Object.Module._extensions..js (module.js:579:10)\n    at Module.load (module.js:487:32)\n    at tryModuleLoad (module.js:446:12)\n    at Function.Module._load (module.js:438:3)\n    at Module.runMain (module.js:604:10)\n    at run (bootstrap_node.js:389:7)\n    at startup (bootstrap_node.js:149:9)\n    at bootstrap_node.js:504:3"},"log":{},"fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"the earth is flat","time":"2018-03-28T18:22:45.946Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":50,"application":"","program":"","language":"","err":{"message":"the earth is round :p","name":"discovery","stack":"Some stack here....."},"log":{"message":"the earth is round :p","name":"discovery"},"fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"the earth is round :p","time":"2018-03-28T18:22:45.947Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":30,"application":"","program":"","language":"","dump":{"message":"Hi...."},"tag":"ParentObject name changed","fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"","time":"2018-03-28T18:22:45.947Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":20,"application":"","program":"","language":"","dump":{"arg":"some arg"},"fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"","time":"2018-03-28T18:22:45.948Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":20,"application":"","program":"","language":"","dump":{"demo":{"text":"hello world"},"someObj":{"p":"content.."}},"fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"","time":"2018-03-28T18:22:45.948Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":20,"application":"","program":"","language":"","dump":{"demo":{"number":0,"obj":{"a":"a","b":"b"}}},"fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"","time":"2018-03-28T18:22:45.949Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":50,"application":"","program":"","language":"","err":{"message":"the earth is round :p","name":"discovery","stack":"Some stack here....."},"dump":{"message":"Some error"},"tag":"hello error","fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"the earth is round :p","time":"2018-03-28T18:22:45.949Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":50,"application":"","program":"","language":"","err":{"message":"the earth is round :p","name":"discovery","stack":"Some stack here....."},"log":{"message":"My custom error message","functionName":"hello()"
+		},"fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"the earth is round :p","time":"2018-03-28T18:22:45.949Z","v":0}
 		```
 	* `NODE_ENV=local node test/test.local.1.js`
 
 		```
-		[2017-10-26T16:32:42.988Z]  INFO: sp-json-logger/49590 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
+		[2018-03-28T18:34:43.503Z]  INFO: sp-json-logger/29239 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
 
-			--
-			log: {
-			"message": "hi"
-			}
-		[2017-10-26T16:32:42.999Z] DEBUG: sp-json-logger/49590 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
+		--
+		log: {
+		"message": "hi"
+		}
+		--
+		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-03-28T18:34:43.511Z] DEBUG: sp-json-logger/29239 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
 
-			--
-			log: {
-			"message": "Your string here..."
-			}
-		[2017-10-26T16:32:43.001Z] DEBUG: sp-json-logger/49590 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=myTagA)
+		--
+		log: {
+		"message": "Your string here..."
+		}
+		--
+		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-03-28T18:34:43.513Z] DEBUG: sp-json-logger/29239 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=myTagA)
 
-			--
-			log: {
-			"message": "Successfully connected"
-			}
-		[2017-10-26T16:32:43.001Z] DEBUG: sp-json-logger/49590 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=myTagB)
+		--
+		log: {
+		"message": "Successfully connected"
+		}
+		--
+		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-03-28T18:34:43.514Z] DEBUG: sp-json-logger/29239 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=myTagB)
 
-			--
-			log: {
-			"type": "AUDIT",
-			"habitable": {
-				"planets": [
-				"mars",
-				"earth"
-				]
-			}
-			}
+		--
+		log: {
+		"type": "AUDIT",
+		"habitable": {
+			"planets": [
+			"mars",
+			"earth"
+			]
+		}
+		}
+		--
+		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
 
 		Regex with JSON.stingify(object, replacer)
 
-		[2017-10-26T16:32:43.011Z] DEBUG: sp-json-logger/49590 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=Regex)
+		[2018-03-28T18:34:43.522Z] DEBUG: sp-json-logger/29239 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=Regex)
 
-			--
-			log: {
-			"query": "{\"sku\":\"/^BA1262$/i\"}"
-			}
-		[2017-10-26T16:32:43.011Z] DEBUG: sp-json-logger/49590 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=RegExArray)
+		--
+		log: {
+		"query": "{\"sku\":\"/^BA1262$/i\"}"
+		}
+		--
+		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-03-28T18:34:43.523Z] DEBUG: sp-json-logger/29239 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=RegExArray)
 
-			--
-			log: {
-			"query": "{\"query\":[{\"sku\":\"/^BA1262$/i\"},{\"sku\":\"/^BRAT$/i\"}]}"
-			}
-		[2017-10-26T16:32:43.012Z] DEBUG: sp-json-logger/49590 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=parse(boolean))
+		--
+		log: {
+		"query": "{\"query\":[{\"sku\":\"/^BA1262$/i\"},{\"sku\":\"/^BRAT$/i\"}]}"
+		}
+		--
+		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-03-28T18:34:43.525Z] DEBUG: sp-json-logger/29239 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=parse(boolean))
 
-			--
-			log: {
-			"sku": "/^BA1262$/i"
-			}
-		[2017-10-26T16:32:43.012Z] DEBUG: sp-json-logger/49590 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag="RegExArray parse(boolean)")
+		--
+		log: {
+		"sku": "/^BA1262$/"
+		}
+		--
+		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-03-28T18:34:43.525Z] DEBUG: sp-json-logger/29239 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag="RegExArray parse(boolean)")
 
-			--
-			log: {
-			"query": [
-				{
-				"sku": "/^BA1262$/i"
-				},
-				{
-				"sku": "/^BRAT$/i"
-				}
-			]
+		--
+		log: {
+		"query": [
+			{
+			"sku": "/^BA1262$/"
+			},
+			{
+			"sku": "/^BRAT$/"
 			}
-		[2017-10-26T16:32:43.014Z] ERROR: sp-json-logger/49590 on Yogeshs-MacBook-Air.local: the earth is flat (application="", program="", language="")
-			Error: the earth is flat
-				at Object.<anonymous> (/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js:34:13)
-				at Module._compile (module.js:570:32)
-				at Object.Module._extensions..js (module.js:579:10)
-				at Module.load (module.js:487:32)
-				at tryModuleLoad (module.js:446:12)
-				at Function.Module._load (module.js:438:3)
-				at Module.runMain (module.js:604:10)
-				at run (bootstrap_node.js:389:7)
-				at startup (bootstrap_node.js:149:9)
-				at bootstrap_node.js:504:3
-		[2017-10-26T16:32:43.014Z] ERROR: sp-json-logger/49590 on Yogeshs-MacBook-Air.local: the earth is round :p (application="", program="", language="")
-			Some stack here.....
-		[2017-10-26T16:32:43.015Z]  INFO: sp-json-logger/49590 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag="ParentObject name changed")
+		]
+		}
+		--
+		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-03-28T18:34:43.528Z] ERROR: sp-json-logger/29239 on Yogeshs-MacBook-Air.local: the earth is flat (application="", program="", language="",log={})
+		Error: the earth is flat
+			at Object.<anonymous> (/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js:34:13)
+			at Module._compile (module.js:570:32)
+			at Object.Module._extensions..js (module.js:579:10)
+			at Module.load (module.js:487:32)
+			at tryModuleLoad (module.js:446:12)
+			at Function.Module._load (module.js:438:3)
+			at Module.runMain (module.js:604:10)
+			at run (bootstrap_node.js:389:7)
+			at startup (bootstrap_node.js:149:9)
+			at bootstrap_node.js:504:3
+		--
+		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-03-28T18:34:43.529Z] ERROR: sp-json-logger/29239 on Yogeshs-MacBook-Air.local: the earth is round :p (application="", program="", language="")
+		Some stack here.....
+		--
+		log: {
+		"message": "the earth is round :p",
+		"name": "discovery"
+		}
+		--
+		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-03-28T18:34:43.530Z]  INFO: sp-json-logger/29239 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag="ParentObject name changed")
 
-			--
-			dump: {
-			"message": "Hi...."
-			}
-		[2017-10-26T16:32:43.015Z] DEBUG: sp-json-logger/49590 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
+		--
+		dump: {
+		"message": "Hi...."
+		}
+		--
+		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-03-28T18:34:43.530Z] DEBUG: sp-json-logger/29239 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
 
-			--
-			dump: {
-			"arg": "some arg"
+		--
+		dump: {
+		"arg": "some arg"
+		}
+		--
+		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-03-28T18:34:43.531Z] DEBUG: sp-json-logger/29239 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
+
+		--
+		dump: {
+		"demo": {
+			"text": "hello world"
+		},
+		"someObj": {
+			"p": "content.."
+		}
+		}
+		--
+		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-03-28T18:34:43.532Z] DEBUG: sp-json-logger/29239 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
+
+		--
+		dump: {
+		"demo": {
+			"number": 0,
+			"obj": {
+			"a": "a",
+			"b": "b"
 			}
+		}
+		}
+		--
+		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-03-28T18:34:43.539Z] ERROR: sp-json-logger/29239 on Yogeshs-MacBook-Air.local: the earth is round :p (application="", program="", language="", tag="hello error")
+		Some stack here.....
+		--
+		dump: {
+		"message": "Some error"
+		}
+		--
+		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-03-28T18:34:43.540Z] ERROR: sp-json-logger/29239 on Yogeshs-MacBook-Air.local: the earth is round :p (application="", program="", language="")
+		Some stack here.....
+		--
+		log: {
+		"message": "My custom error message",
+		"functionName": "hello()"
+		}
+		--
+		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
 		```
 # setParentObjectName('String')
 
