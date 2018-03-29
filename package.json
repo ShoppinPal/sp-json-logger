@@ -1,6 +1,6 @@
 {
   "name": "sp-json-logger",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "wrapper to bunyan logger",
   "main": "./src/bunyanWrapper.js",
   "scripts": {
