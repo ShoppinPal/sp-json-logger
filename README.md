@@ -133,6 +133,7 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":50,"application":"","program":"","language":"","err":{"message":"the earth is round :p","name":"discovery","stack":"Some stack here....."},"dump":{"message":"Some error"},"tag":"hello error","fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"the earth is round :p","time":"2018-03-28T18:22:45.949Z","v":0}
 		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":50,"application":"","program":"","language":"","err":{"message":"the earth is round :p","name":"discovery","stack":"Some stack here....."},"log":{"message":"My custom error message","functionName":"hello()"
 		},"fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"the earth is round :p","time":"2018-03-28T18:22:45.949Z","v":0}
+		{"name":"sp-json-logger","hostname":"3076905ec882","pid":5,"level":50,"application":"tests","program":"sp-json-logger","language":"javascript","log":{"message":"My custom error message","functionName":"error()"},"tag":"Not-Error-Instance","fileName":"/app/test/test.1.js","msg":"","time":"2018-03-29T09:54:30.393Z","v":0}
 		```
 	* `NODE_ENV=local node test/test.local.1.js`
 
@@ -300,6 +301,14 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 		}
 		--
 		fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-03-29T09:58:27.409Z] ERROR: sp-json-logger/35398 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=Not-Error-Instance)
+    	--
+    	log: {
+      	"message": "My custom error message",
+      	"functionName": "hello()"
+    	}
+    	--
+    	fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
 		```
 # setParentObjectName('String')
 
