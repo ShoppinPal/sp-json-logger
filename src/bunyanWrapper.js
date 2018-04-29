@@ -121,7 +121,7 @@ function Logger(config) {
     if (typeof payload === 'string') {
       log = Object.assign({}, { application: this.application, program: this.program, language: this.language },
         {
-          [state === constants.STATE_ERROR ? 'err' : this.parentObject]: { message: payload }
+          [this.parentObject]: { message: payload }
         });
     } else if (typeof payload === 'object') {
       if (state === constants.STATE_ERROR) {

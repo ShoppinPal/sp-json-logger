@@ -57,11 +57,15 @@ Source: [https://www.npmjs.com/package/bunyan#levels](https://www.npmjs.com/pack
 - Order version required you to log by explcitly stating parent object name i.e **log** as per following example:
 
 
-	`logger.debug({log: {message: 'hello world'}});`. 
-
-	Latest version supports
-
-	`logger.debug('hello world');` syntax.
+```js
+// Older version (1.0.9)
+logger.debug({log: {message: 'hello world'}});
+// Newer version
+logger.debug('hello world');
+logger.debug({message: 'hello world'});
+logger.error('hello world');
+logger.error({message: 'hello world'});
+```
 - You can set parent object name by utilizing the method `setParentObjectName('String')` explained below.
 - As far as possible use `logger.tag('TAG');` field to describe the event for which we are logging.
 - If you just need to log a string, you can create it as follows: 
@@ -134,6 +138,7 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":50,"application":"","program":"","language":"","err":{"message":"the earth is round :p","name":"discovery","stack":"Some stack here....."},"log":{"message":"My custom error message","functionName":"hello()"
 		},"fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"the earth is round :p","time":"2018-03-28T18:22:45.949Z","v":0}
 		{"name":"sp-json-logger","hostname":"3076905ec882","pid":5,"level":50,"application":"tests","program":"sp-json-logger","language":"javascript","log":{"message":"My custom error message","functionName":"error()"},"tag":"Not-Error-Instance","fileName":"/app/test/test.1.js","msg":"","time":"2018-03-29T09:54:30.393Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":95722,"level":50,"application":"","program":"","language":"","log":{"message":"hello error"},"tag":"Not-Error-Instance","fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"","time":"2018-04-29T11:53:51.606Z","v":0}
 		```
 	* `NODE_ENV=local node test/test.local.1.js`
 
@@ -306,6 +311,13 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
     	log: {
       	"message": "My custom error message",
       	"functionName": "hello()"
+    	}
+    	--
+    	fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-04-29T11:53:00.841Z] ERROR: sp-json-logger/95687 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=Not-Error-Instance)
+    	--
+    	log: {
+      	"message": "hello error"
     	}
     	--
     	fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
