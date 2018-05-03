@@ -1,4 +1,5 @@
 module.exports = {
+    SP_PRETTY_PRINT: 'true',
     STATE_DEFAULT: 'DEFAULT',
     STATE_INFO: 'INFO',
     STATE_WARN: 'WARN',
