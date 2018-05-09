@@ -4,11 +4,12 @@
 var bunyan = require('bunyan');
 const cloneDeep = require('clone-deep');
 const constants = require('./utils/constants.js');
-var env = process.env.NODE_ENV;
+var shouldPrettyPrint = process.env.SP_PRETTY_PRINT;
 var PrettyStream = require('./utils/bunyan-pretty-stream/lib/prettystream');
 
 var prettyStdOut = null;
-if (env === 'local') {
+
+if (shouldPrettyPrint === constants.SP_PRETTY_PRINT) {
   prettyStdOut = new PrettyStream();
   prettyStdOut.pipe(process.stdout);
 }

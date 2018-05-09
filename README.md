@@ -25,6 +25,7 @@ You need to set the following environment variables for logger to work without o
 - **PROGRAM:** 'Name of module' // eg: scheduler-worker or scheduler-api
 - **LANGUAGE:** 'Programming language used' // eg: javascript/php/go
 - **NODE_ENV:** 'environment' // note: Pretty print is supported on local environment setting, if using staging or production, you won’t get pretty json output to console.
+- ***SP_PRETTY_PRINT:*** Set its value as `SP_PRETTY_PRINT=true` to enable pretty print of json.
 
 If logging only string message, use the following format:
 
@@ -67,6 +68,7 @@ Source: [https://www.npmjs.com/package/bunyan#levels](https://www.npmjs.com/pack
 - If you just need to log a string, you can create it as follows: 
 
 	`logger.debug('your string');`
+- To enable pretty print, use the environment variable `SP_PRETTY_PRINT=true`.
 
 # Local environment vs Staging/Production environment:
 
@@ -135,7 +137,7 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 		},"fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"the earth is round :p","time":"2018-03-28T18:22:45.949Z","v":0}
 		{"name":"sp-json-logger","hostname":"3076905ec882","pid":5,"level":50,"application":"tests","program":"sp-json-logger","language":"javascript","log":{"message":"My custom error message","functionName":"error()"},"tag":"Not-Error-Instance","fileName":"/app/test/test.1.js","msg":"","time":"2018-03-29T09:54:30.393Z","v":0}
 		```
-	* `NODE_ENV=local node test/test.local.1.js`
+	* `SP_PRETTY_PRINT=true node test/test.local.1.js`
 
 		```
 		[2018-03-28T18:34:43.503Z]  INFO: sp-json-logger/29239 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
