@@ -70,7 +70,7 @@ logger.error({ message: 'My custom error message', functionName: 'hello()', err:
 
 logger.tag('Not-Error-Instance').error({ message: 'My custom error message', functionName: 'hello()'});
 /* Version 2.1.3 */
-logger.tag('Not-Error-Instance').error('hello error');
+logger.tag('Only string').error('hello error');
 
 /*
     utility functions
