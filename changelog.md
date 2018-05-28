@@ -1,3 +1,9 @@
+v2.1.3
+- This release brings a set of new minor feature patches as given below
+    - You can log an error string using the syntax: `logger.error('some error');`
+    - If you want to enable pretty print, then use the new env variable: `SP_PRETTY_PRINT=true` instead of earlier `NODE_ENV=local`.
+    - If you want to disable all the logs from `sp-json-logger`, then use the env variable `SP_DISABLE_LOGS=true`.
+
 v2.1.2
 - Intelligent error object detection. If we pass custom object inside error log, it will be encapsulated into `log` object or whichever object name is set using `setParentObjectName()`.
 But if we are passing an error object instance, it will be encapsulated inside `err` object.
