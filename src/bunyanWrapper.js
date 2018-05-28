@@ -25,6 +25,11 @@ function Logger(config) {
         }
       ]
     });
+  
+  if (process.env.SP_DISABLE_LOGS === constants.SP_DISABLE_LOGS) {
+    // refer: https://github.com/trentm/node-bunyan/issues/456
+    this.bunyanLogger.level(bunyan.FATAL + 1);
+  }
 
   this.parentObject = 'log';
   this.filterObject = {};
