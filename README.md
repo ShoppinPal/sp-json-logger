@@ -25,8 +25,8 @@ You need to set the following environment variables for logger to work without o
 - **PROGRAM:** 'Name of module' // eg: scheduler-worker or scheduler-api
 - **LANGUAGE:** 'Programming language used' // eg: javascript/php/go
 - **NODE_ENV:** 'environment' // note: Pretty print is supported on local environment setting, if using staging or production, you won’t get pretty json output to console.
+- **SP_DISABLE_LOGS:** Use this env variable as `SP_DISABLE_LOGS=true` to disable all logs from `sp-json-logger`.
 - ***SP_PRETTY_PRINT:*** Set its value as `SP_PRETTY_PRINT=true` to enable pretty print of json.
-
 If logging only string message, use the following format:
 
 `logger.debug({message: 'Your string here...'});` or `logger.debug('Your string here...');`

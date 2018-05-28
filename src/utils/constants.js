@@ -1,4 +1,5 @@
 module.exports = {
+    SP_DISABLE_LOGS: 'true',
     SP_PRETTY_PRINT: 'true',
     STATE_DEFAULT: 'DEFAULT',
     STATE_INFO: 'INFO',
@@ -6,5 +7,5 @@ module.exports = {
     STATE_ERROR: 'ERROR',
     STATE_DEBUG: 'DEBUG',
     STATE_TRACE: 'TRACE',
-    STATE_FATAL: 'FATAL'
+    STATE_FATAL: 'FATAL',
 }
