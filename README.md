@@ -25,7 +25,8 @@ You need to set the following environment variables for logger to work without o
 - **PROGRAM:** 'Name of module' // eg: scheduler-worker or scheduler-api
 - **LANGUAGE:** 'Programming language used' // eg: javascript/php/go
 - **NODE_ENV:** 'environment' // note: Pretty print is supported on local environment setting, if using staging or production, you won’t get pretty json output to console.
-
+- **SP_DISABLE_LOGS:** Use this env variable as `SP_DISABLE_LOGS=true` to disable all logs from `sp-json-logger`.
+- ***SP_PRETTY_PRINT:*** Set its value as `SP_PRETTY_PRINT=true` to enable pretty print of json.
 If logging only string message, use the following format:
 
 `logger.debug({message: 'Your string here...'});` or `logger.debug('Your string here...');`
@@ -57,16 +58,21 @@ Source: [https://www.npmjs.com/package/bunyan#levels](https://www.npmjs.com/pack
 - Order version required you to log by explcitly stating parent object name i.e **log** as per following example:
 
 
-	`logger.debug({log: {message: 'hello world'}});`. 
-
-	Latest version supports
-
-	`logger.debug('hello world');` syntax.
+```js
+// Older version (1.0.9)
+logger.debug({log: {message: 'hello world'}});
+// Newer version
+logger.debug('hello world');
+logger.debug({message: 'hello world'});
+logger.error('hello world');
+logger.error({message: 'hello world'});
+```
 - You can set parent object name by utilizing the method `setParentObjectName('String')` explained below.
 - As far as possible use `logger.tag('TAG');` field to describe the event for which we are logging.
 - If you just need to log a string, you can create it as follows: 
 
 	`logger.debug('your string');`
+- To enable pretty print, use the environment variable `SP_PRETTY_PRINT=true`.
 
 # Local environment vs Staging/Production environment:
 
@@ -134,8 +140,9 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
 		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":29062,"level":50,"application":"","program":"","language":"","err":{"message":"the earth is round :p","name":"discovery","stack":"Some stack here....."},"log":{"message":"My custom error message","functionName":"hello()"
 		},"fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"the earth is round :p","time":"2018-03-28T18:22:45.949Z","v":0}
 		{"name":"sp-json-logger","hostname":"3076905ec882","pid":5,"level":50,"application":"tests","program":"sp-json-logger","language":"javascript","log":{"message":"My custom error message","functionName":"error()"},"tag":"Not-Error-Instance","fileName":"/app/test/test.1.js","msg":"","time":"2018-03-29T09:54:30.393Z","v":0}
+		{"name":"sp-json-logger","hostname":"Yogeshs-MacBook-Air.local","pid":95722,"level":50,"application":"","program":"","language":"","log":{"message":"hello error"},"tag":"Not-Error-Instance","fileName":"/Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js","msg":"","time":"2018-04-29T11:53:51.606Z","v":0}
 		```
-	* `NODE_ENV=local node test/test.local.1.js`
+	* `SP_PRETTY_PRINT=true node test/test.local.1.js`
 
 		```
 		[2018-03-28T18:34:43.503Z]  INFO: sp-json-logger/29239 on Yogeshs-MacBook-Air.local:  (application="", program="", language="")
@@ -306,6 +313,13 @@ Important: Pretty print stream is a huge performance overhead, so it is recommen
     	log: {
       	"message": "My custom error message",
       	"functionName": "hello()"
+    	}
+    	--
+    	fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js
+		[2018-04-29T11:53:00.841Z] ERROR: sp-json-logger/95687 on Yogeshs-MacBook-Air.local:  (application="", program="", language="", tag=Not-Error-Instance)
+    	--
+    	log: {
+      	"message": "hello error"
     	}
     	--
     	fileName: /Users/yogeshjadhav/Documents/sp-json-logger/test/test.local.1.js

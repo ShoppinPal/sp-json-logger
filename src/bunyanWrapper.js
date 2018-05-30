@@ -4,11 +4,12 @@
 var bunyan = require('bunyan');
 const cloneDeep = require('clone-deep');
 const constants = require('./utils/constants.js');
-var env = process.env.NODE_ENV;
+var shouldPrettyPrint = process.env.SP_PRETTY_PRINT;
 var PrettyStream = require('./utils/bunyan-pretty-stream/lib/prettystream');
 
 var prettyStdOut = null;
-if (env === 'local') {
+
+if (shouldPrettyPrint === constants.SP_PRETTY_PRINT) {
   prettyStdOut = new PrettyStream();
   prettyStdOut.pipe(process.stdout);
 }
@@ -25,6 +26,11 @@ function Logger(config) {
         }
       ]
     });
+  
+  if (process.env.SP_DISABLE_LOGS === constants.SP_DISABLE_LOGS) {
+    // refer: https://github.com/trentm/node-bunyan/issues/456
+    this.bunyanLogger.level(bunyan.FATAL + 1);
+  }
 
   this.parentObject = 'log';
   this.filterObject = {};
@@ -121,7 +127,7 @@ function Logger(config) {
     if (typeof payload === 'string') {
       log = Object.assign({}, { application: this.application, program: this.program, language: this.language },
         {
-          [state === constants.STATE_ERROR ? 'err' : this.parentObject]: { message: payload }
+          [this.parentObject]: { message: payload }
         });
     } else if (typeof payload === 'object') {
       if (state === constants.STATE_ERROR) {
